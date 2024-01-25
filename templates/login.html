@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Body Background Image</title>
+</head>
+<body>
+    <div class="Intro top">
+        <div class = "logo ">
+            <h1>&infin; Infty</h1>
+        </div>
+        <div class = "somethingmore">
+            <ul>
+                <li><a href = #>About Us</a></li>
+                <li><a href = #>Contact Us</a></li>
+                <li><a href = #>Help</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="login-container">
+        <h2>&#128274; Login</h2> 
+        <form action="/login" method="post">
+            <div class="form-group ">
+                <span>&#128100;</span>
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <span>&#128273;</span>
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <div class="additional-links">
+            <!-- <p><a href="/forgot-password">Forgot Password? </a><a href="/register">Create New Account</a></p> -->
+            <ul>
+                <li><a href="/register">Create Account</a></li>
+                <li><a href="/forgot-password">Forgot Password?</li> 
+            </ul>
+        </div>
+        
+    </div>
+</body>
+</html>
