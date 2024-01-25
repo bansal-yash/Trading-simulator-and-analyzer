@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Add your CSS styles or link to an external stylesheet here -->
+    <link rel="stylesheet" href={{ url_for('static', filename='graph.css') }}>
+    
+    <!-- <script src="graph.js" defer></script> -->
+</head>
+<body>
+    <div class = "graph">
+        <div class = "explore_areas">
+            <ul>
+                <button onclick="toggleMode(1)">Single Stock</button>
+                <button onclick="toggleMode(2)">Compare Stock</button>
+            </ul>
+        </div>
+        <div class = 'account_side'>
+            <div id="mode1Content">
+                <ul>
+                    <li>
+                        <div class="custom-select">
+                            <form action="/submit" method="post" id="stocks">
+                                <select  onchange="submitForm()">
+                                    <option value="0">SBIN</option>
+                                    <option value="1">Reliance</option>
+                                </select>
+                            </form>
+                        </div>
+    
+                    </li>
+                    <li>
+                        <div class="custom-select">
+                            <form action="/submit" method="post" id="time">
+                                <select onchange="submitForm()">
+                                    <option value="0">1yr</option>
+                                    <option value="1">1wk</option>
+                                </select>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="custom-select">
+                            <form action="/submit" method="post" id="options">
+                                <select onchange="submitForm()">
+                                    <option value="0">Closing Price</option>
+                                    <option value="1">Opening Price</option>
+                                </select>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id = "mode2Content">
+                <ul>
+                    <li>
+                        <div class="custom-select">
+                            <form action="/submit" method="post" id="stock_1">
+                                <select  onchange="submitForm()">
+                                    <option value="0">SBIN</option>
+                                    <option value="1">Reliance</option>
+                                </select>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="custom-select">
+                            <form action="/submit" method="post" id="stock_2">
+                                <select  onchange="submitForm()">
+                                    <option value="0">SBIN</option>
+                                    <option value="1">Reliance</option>
+                                </select>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="custom-select">
+                            <form action="/submit" method="post" id="time">
+                                <select onchange="submitForm()">
+                                    <option value="0">1yr</option>
+                                    <option value="1">1wk</option>
+                                </select>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="custom-select">
+                            <form action="/submit" method="post" id="options">
+                                <select onchange="submitForm()">
+                                    <option value="0">Closing Price</option>
+                                    <option value="1">Opening Price</option>
+                                </select>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+            
+    </div>
+
+    <script>
+        function submitForm() {
+            document.getElementById("stocks").submit();
+            document.getElementById("options").submit();
+            document.getElementById("time").submit();
+            document.getElementById("stock 1").submit();
+            document.getElementById("stock 2").submit();
+
+        }
+        function toggleMode(mode) {
+            if (mode === 1) {
+                document.getElementById('mode1Content').style.display = 'block';
+                document.getElementById('mode2Content').style.display = 'none';
+            } else {
+                document.getElementById('mode1Content').style.display = 'none';
+                document.getElementById('mode2Content').style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>

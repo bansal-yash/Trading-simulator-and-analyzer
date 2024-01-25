@@ -3,25 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for('static', filename='dashboard.css') }}>
     <title>Sidebar Layout</title>
-    <style>
-        body {
-            display: flex;
-            margin: 0;
-        }
-
-        .sidebar {
-            width: 20%;
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 20px;
-        }
-    </style>
 </head>
 <body>
 
@@ -36,8 +19,48 @@
     </div>
 
     <div class="main-content">
-        <h1>Main Content</h1>
-        <p>This is the main content area with a width of 80%.</p>
+        <div class = "account">
+            <div class = "explore_areas">
+                <ul>
+                    <li><a href = #>Explore</a></li>
+                    <li><a href = #>Invest</a></li>
+                </ul>
+            </div>
+            <div class = 'account_side'>
+                <ul>
+                    <li><a href = #>Premium</a></li>
+                    <li>Score</li>
+                    <li><a href = #>Account</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="dashboard">
+            <div class= "dash_text">
+                <div><h1>Dashboard</h1></div>
+            </div>
+            <div class = "box">
+                <div class="box_in" style="background-color: #d9ebf7;">Box 1</div>
+                <div class="box_in" style="background-color: #f8dbfc;">Box 2</div>
+                <div class="box_in" style="background-color: #fbe5de;">Box 3</div>
+                <div class="box_in" style="background-color: #dbf5e2;">Box 4</div>
+                <div class="box_in" style="background-color: #e5eebb;">Box 5</div>
+                <div class="box_in" style="background-color: #def3f6;">Box 6</div>
+                <div class="box_in" style="background-color: #bbbeee;">Box 7</div>
+                <div class="box_in" style="background-color: #eebbbb;">Box 8</div>
+                <div class="box_in" style="background-color: #e6cc90;">Box 9</div>
+                <div class="box_in" style="background-color: #fbf7fb;">Box 10</div>
+                <!-- <div class="box">Box 12</div> -->
+                <!-- <div class="box">Box 12</div> -->
+            </div>
+
+            <div class = "plots">
+                <div class="column" >
+                    {% include 'graph.html' %}
+                </div>
+                <div class="column" >Plot2</div>
+            </div>
+        </div>
+        <div class = "main"></div>
     </div>
 
 </body>
