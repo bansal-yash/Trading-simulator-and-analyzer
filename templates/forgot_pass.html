@@ -22,8 +22,11 @@
         <p class="lock-icon"> &#128274;</p>
         <h2>Forgot Password?</h2>
         <p>You can reset your Password here</p>
-        <input type="text" class="passInput" name = 'phone' placeholder="Phone number">
-        <button>Reset Password</button>
+        <form action = "/forgot-password" method = "POST">
+            <input type="text" class="passInput" name = 'phone' placeholder="Phone number">
+            <button>Reset Password</button>
+        </form>
+        
     </div>
 </body>
 
