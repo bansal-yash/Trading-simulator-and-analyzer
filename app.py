@@ -69,6 +69,10 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
+@app.route('/second_page')
+def second_page():
+    return render_template('graph.html')
+
 # @app.route('/forgot-password')
 # def forgot_pass():
 #     phone = request.form['phone']

@@ -1,125 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
-    <!-- Add your CSS styles or link to an external stylesheet here -->
     <link rel="stylesheet" href={{ url_for('static', filename='graph.css') }}>
+    <script type="javascript" src="{{ url_for('static', filename='graph.js') }}"></script>
+    <title>Your Page Title</title>
     
-    <!-- <script src="graph.js" defer></script> -->
+    
 </head>
+
 <body>
-    <div class = "graph">
-        <div class = "explore_areas">
+    <div class="customize">
+        <div class="select_model" style="width:150px">
             <ul>
-                <button onclick="toggleMode(1)">Single Stock</button>
-                <button onclick="toggleMode(2)">Compare Stock</button>
+                <li>
+                    <div class="custom-select" style="width:150px;">
+                        <select>
+                            <option value="0">Single Stock</option>
+                            <option value="1">Compare Stock</option>
+                            <option value="2">Multiple Stock</option>
+                        </select>
+                    </div>
+
+                </li>
             </ul>
         </div>
-        <div class = 'account_side'>
+        <div class='account_side'>
             <div id="mode1Content">
                 <ul>
                     <li>
-                        <div class="custom-select">
-                            <form action="/submit" method="post" id="stocks">
-                                <select  onchange="submitForm()">
-                                    <option value="0">SBIN</option>
-                                    <option value="1">Reliance</option>
-                                </select>
-                            </form>
+                        <div class="custom-select" style="width:150px;">
+                            <select>
+                                <option value="0">SBIN</option>
+                                <option value="1">Reliance</option>
+                                <option value="2">ULTRACEMCO</option>
+                                <option value="3">ULTRACEMCO</option>
+                                <option value="4">ULTRACEMCO</option>
+                                <option value="5">ULTRACEMCO</option>
+                                <option value="6">ULTRACEMCO</option>
+                                <option value="7">ULTRACEMCO</option>
+                                <option value="8">ULTRACEMCO</option>
+                                <option value="9">ULTRACEMCO</option>
+                                <option value="10">ULTRACEMCO</option>
+                                <option value="11">ULTRACEMCO</option>
+                                <option value="12">ULTRACEMCO</option>
+                                <option value="13">ULTRACEMCO</option>
+                            </select>
                         </div>
-    
+
                     </li>
                     <li>
-                        <div class="custom-select">
-                            <form action="/submit" method="post" id="time">
-                                <select onchange="submitForm()">
-                                    <option value="0">1yr</option>
-                                    <option value="1">1wk</option>
-                                </select>
-                            </form>
+                        <div class="custom-select" style="width:100px;">
+                            <select>
+                                <option value="0">1 year</option>
+                                <option value="1">1 wk</option>
+                            </select>
                         </div>
                     </li>
                     <li>
-                        <div class="custom-select">
-                            <form action="/submit" method="post" id="options">
-                                <select onchange="submitForm()">
-                                    <option value="0">Closing Price</option>
-                                    <option value="1">Opening Price</option>
-                                </select>
-                            </form>
+                        <div class="custom-select" style="width:150px;">
+                            <select>
+                                <option value="0">Opening Price:</option>
+                                <option value="1">Closing Price</option>
+                            </select>
                         </div>
                     </li>
                 </ul>
             </div>
-            <div id = "mode2Content">
+            <div id="mode2Content">
                 <ul>
                     <li>
-                        <div class="custom-select">
-                            <form action="/submit" method="post" id="stock_1">
-                                <select  onchange="submitForm()">
-                                    <option value="0">SBIN</option>
-                                    <option value="1">Reliance</option>
-                                </select>
-                            </form>
+                        <div class="custom-select" style="width:120px;">
+                            <select>
+                                <option value="0">SBIN</option>
+                                <option value="1">Reliance</option>
+                            </select>
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="custom-select" style="width:100px;">
+                            <select>
+                                <option value="0">SBIN</option>
+                                <option value="1">Reliance</option>
+                            </select>
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="custom-select" style="width:100px;">
+                            <select>
+                                <option value="0">1 year</option>
+                                <option value="1">1 wk</option>
+                            </select>
                         </div>
                     </li>
                     <li>
-                        <div class="custom-select">
-                            <form action="/submit" method="post" id="stock_2">
-                                <select  onchange="submitForm()">
-                                    <option value="0">SBIN</option>
-                                    <option value="1">Reliance</option>
-                                </select>
-                            </form>
+                        <div class="custom-select" style="width:150px;">
+                            <select>
+                                <option value="0">Opening Price:</option>
+                                <option value="1">Closing Price</option>
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="mode3Content">
+                <ul>
+                    <li>
+                        <div class="custom-select" style="width:100px;">
+                            <select>
+                                <option value="0">1 year</option>
+                                <option value="1">1 wk</option>
+                            </select>
                         </div>
                     </li>
                     <li>
-                        <div class="custom-select">
-                            <form action="/submit" method="post" id="time">
-                                <select onchange="submitForm()">
-                                    <option value="0">1yr</option>
-                                    <option value="1">1wk</option>
-                                </select>
-                            </form>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="custom-select">
-                            <form action="/submit" method="post" id="options">
-                                <select onchange="submitForm()">
-                                    <option value="0">Closing Price</option>
-                                    <option value="1">Opening Price</option>
-                                </select>
-                            </form>
+                        <div class="custom-select" style="width:150px;">
+                            <select>
+                                <option value="0">Opening Price:</option>
+                                <option value="1">Closing Price</option>
+                            </select>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-            
+
     </div>
+    <div id="select_multiple_stocks">
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="graph">
+        <div class="graph-part">
 
+        </div>
+
+    </div>
     <script>
-        function submitForm() {
-            document.getElementById("stocks").submit();
-            document.getElementById("options").submit();
-            document.getElementById("time").submit();
-            document.getElementById("stock 1").submit();
-            document.getElementById("stock 2").submit();
+        var integerArray = [0, 1, 2, 3];
+var integerArray2 = [0, 4, 5, 6, 7];
+var integerArray3 = [0, 8, 9, 10, 11, 12, 13, 14];
 
-        }
-        function toggleMode(mode) {
-            if (mode === 1) {
-                document.getElementById('mode1Content').style.display = 'block';
-                document.getElementById('mode2Content').style.display = 'none';
-            } else {
-                document.getElementById('mode1Content').style.display = 'none';
-                document.getElementById('mode2Content').style.display = 'block';
+function submitForm() {
+  document.getElementById("stocks").submit();
+  document.getElementById("options").submit();
+  document.getElementById("time").submit();
+  document.getElementById("stock 1").submit();
+  document.getElementById("stock 2").submit();
+}
+
+function toggleMode(mode) {
+  if (mode === 1) {
+    document.getElementById("mode1Content").style.display = "block";
+    document.getElementById("mode2Content").style.display = "none";
+    document.getElementById("mode3Content").style.display = "none";
+    document.getElementById("select_multiple_stocks").style.display = "none";
+  } else if (mode === 2) {
+    document.getElementById("mode1Content").style.display = "none";
+    document.getElementById("mode2Content").style.display = "block";
+    document.getElementById("mode3Content").style.display = "none";
+    document.getElementById("select_multiple_stocks").style.display = "none";
+  } else {
+    document.getElementById("mode1Content").style.display = "none";
+    document.getElementById("mode2Content").style.display = "none";
+    document.getElementById("mode3Content").style.display = "block";
+    document.getElementById("select_multiple_stocks").style.display = "grid";
+  }
+}
+
+var x, i, j, l, ll, selElmnt, a, b, c;
+/* Look for any elements with the class "custom-select": */
+x = document.getElementsByClassName("custom-select");
+l = x.length;
+for (i = 0; i < l; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  ll = selElmnt.length;
+  /* For each element, create a new DIV that will act as the selected item: */
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /* For each element, create a new DIV that will contain the option list: */
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 0; j < ll; j++) {
+    /* For each option in the original select element,
+    create a new DIV that will act as an option item: */
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function (e) {
+      /* When an item is clicked, update the original select box,
+        and the selected item: */
+      var y, i, k, s, h, sl, yl;
+      s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+      sl = s.length;
+      h = this.parentNode.previousSibling;
+      for (i = 0; i < sl; i++) {
+        if (s.options[i].innerHTML == this.innerHTML) {
+          if (this.innerHTML == "Single Stock") {
+            toggleMode(1);
+          } else if (this.innerHTML == "Compare Stock") {
+            toggleMode(2);
+          } else if (this.innerHTML == "Multiple Stock") {
+            toggleMode(3);
+          }
+          s.selectedIndex = i;
+          h.innerHTML = this.innerHTML;
+          y = this.parentNode.getElementsByClassName("same-as-selected");
+          yl = y.length;
+          for (k = 0; k < yl; k++) {
+            y[k].removeAttribute("class");
+          }
+          this.setAttribute("class", "same-as-selected");
+          var selectedElements = document.querySelectorAll(".select-selected");
+
+          // Iterate over the NodeList (if needed)
+          // console.log(selectedElements.length);
+          if (selectedElements[0].innerHTML === "Single Stock") {
+            for (var i = 0; i < integerArray.length; i++) {
+              console.log(selectedElements[integerArray[i]].innerHTML);
             }
+          } else if (selectedElements[0].innerHTML === "Compare Stock") {
+            for (var i = 0; i < integerArray2.length; i++) {
+              console.log(selectedElements[integerArray2[i]].innerHTML);
+            }
+          } else {
+            for (var i = 0; i < integerArray3.length; i++) {
+              console.log(selectedElements[integerArray3[i]].innerHTML);
+            }
+          }
+          
+          break;
         }
+      }
+      h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function (e) {
+    /* When the select box is clicked, close any other select boxes,
+    and open/close the current select box: */
+    e.stopPropagation();
+    closeAllSelect(this);
+    this.nextSibling.classList.toggle("select-hide");
+    this.classList.toggle("select-arrow-active");
+  });
+}
+
+function closeAllSelect(elmnt) {
+  /* A function that will close all select boxes in the document,
+  except the current select box: */
+  var x,
+    y,
+    i,
+    xl,
+    yl,
+    arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  xl = x.length;
+  yl = y.length;
+  for (i = 0; i < yl; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i);
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < xl; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+
+/* If the user clicks anywhere outside the select box,
+then close all select boxes: */
+document.addEventListener("click", closeAllSelect);
+
     </script>
+    
 
 </body>
+
 </html>

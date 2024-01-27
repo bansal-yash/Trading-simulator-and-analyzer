@@ -1,20 +1,21 @@
-.body{
+body{
     display: flex;
     flex-direction: column;
     flex: 1;
-    background-color: #eeeeeed7;
+    /* background: #0a0a23; */
     padding: 0px;
-    width: 100%;
+    width: 650px;
 }
 
-.graph{
+.customize{
     display: flex;
     justify-content: space-between;
-    background-color: #fff;
-    box-shadow: inset 0 -10px 10px -10px rgba(0, 0, 0, 0.3);
+    /* background: #0a0a23; */
+    background: white;
+    height:50px
 }
 
-.graph ul{
+.customize ul{
     display: flex;
     list-style-type: none;
     margin-top: 8px;
@@ -23,16 +24,10 @@
 ul li{
     text-decoration: none;
     color: black;
-    margin-inline: 13px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .custom-select{
   border: none;
-}
-
-.custom-select select{
-  border: none;
-  width: 100px;
 }
 
 #mode1Content {
@@ -41,4 +36,88 @@ ul li{
 
 #mode2Content {
   display: none;
+}
+
+#mode3Content {
+  display: none;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+  
+}
+
+.select-selected {
+  /* background: #0a0a23; */
+  background: white;
+  color: #0a0a23;
+  font-size: 12px;
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #0a0a23 transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #0a0a23 transparent;
+  top: 7px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,.select-selected {
+  color: #0a0a23;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  /* background: #0a0a23; */
+  color: #0a0a23;
+  background: white;
+  font-size: 12px;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  /* max-height: 200px; */
+  /* overflow-y: auto; */
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#select_multiple_stocks{
+  display: none;
+  grid-template-columns: repeat(5, 1fr);
+  justify-content: center;
+  margin-inline-start: 10px;
+}
+
+.graph{
+  height: 450px;
+  background-color: #ddd;
 }
