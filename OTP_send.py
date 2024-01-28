@@ -12,6 +12,6 @@ def send_email(receiver_email, subject, message):
     msg["Date"] = formatdate(localtime=True)
     msg.attach(MIMEText(message, "plain"))
     server = smtplib.SMTP_SSL("smtp.iitd.ac.in", 465)
-    server.login("cs5221133@iitd.ac.in", "")
+    server.login("cs5221133@iitd.ac.in", "yasb07@05Yash")
     server.sendmail("cs5221133@iitd.ac.in", receiver_email, msg.as_string())
     server.quit()

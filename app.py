@@ -11,6 +11,7 @@ from flask import (
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import OTP_send
+import re, random
 
 
 app = Flask(__name__)
@@ -49,17 +50,44 @@ def register():
         email = request.form["email"]
         password = request.form["password"]
 
-        hashed_password = generate_password_hash(password, method="pbkdf2:sha256")
-        new_user = User(
-            username=username, phone=phone, email=email, password_hash=hashed_password
-        )
-        db.session.add(new_user)
-        db.session.commit()
+        otp = "".join(random.choices("0123456789", k=6))  # 6-digit OTP
+        subject = "OTP to register for infty"
+        message = "Your OTP is " + otp
+        OTP_send.send_email(email, subject, message)
 
-        flash("Registration successful! Please login.")
-        return redirect(url_for("index"))
+        session["otp"] = otp
+        session["username"] = username
+        session["phone"] = phone
+        session["email"] = email
+        session["password"] = password
+
+        return redirect(url_for("verify_otp"))
 
     return render_template("register.html")
+
+@app.route("/verify-otp", methods=["GET", "POST"])
+def verify_otp():
+    if request.method == "POST":
+        entered_otp = request.form["otp"]
+        if session.get('otp') == entered_otp:
+            username = session.pop('username')
+            phone = session.pop('phone')
+            email = session.pop('email')
+            password = session.pop('password')
+
+            hashed_password = generate_password_hash(password, method="pbkdf2:sha256")
+            new_user = User(
+                username=username, phone=phone, email=email, password_hash=hashed_password
+            )
+            db.session.add(new_user)
+            db.session.commit()
+
+            flash("Registration successful! Please login.")
+            return redirect(url_for("index"))
+        else:
+            flash("Invalid OTP. Please try again.")
+
+    return render_template("verify_otp.html")
 
 
 @app.route("/login", methods=["POST"])
@@ -101,11 +129,12 @@ def forgot_pass():
 def check_username():
     username = request.form["username"]
     user = User.query.filter_by(username=username).first()
-    ans = 1
-    if len(username) < 4 or len(username) > 30:
-        ans = 0
-    if user or (ans == 0):
-        return jsonify({"available": False})
+    if len(username) < 4:
+        return jsonify({"available": False, "reason": "short"})
+    elif len(username) > 30:
+        return jsonify({"available": False, "reason": "long"})
+    elif user:
+        return jsonify({"available": False, "reason": "exist"})
     else:
         return jsonify({"available": True})
 
@@ -114,8 +143,11 @@ def check_username():
 def check_phone():
     phone = request.form["phone_number"]
     user = User.query.filter_by(phone=phone).first()
-    if user:
-        return jsonify({"available": False})
+
+    if (not (phone.isdigit())) or len(phone) != 10:
+        return jsonify({"available": False, "reason": "invalid"})
+    elif user:
+        return jsonify({"available": False, "reason": "exist"})
     else:
         return jsonify({"available": True})
 
@@ -124,7 +156,30 @@ def check_phone():
 def check_email():
     email = request.form["email"]
     user = User.query.filter_by(email=email).first()
-    if user:
+    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    if bool(re.match(pattern, email)) == 0:
+        return jsonify({"available": False, "reason": "invalid"})
+    elif user:
+        return jsonify({"available": False, "reason": "exist"})
+    else:
+        return jsonify({"available": True})
+
+
+@app.route("/check-password1", methods=["POST"])
+def check_password():
+    password = request.form["password"]
+    ans = True
+    if len(password) < 8:
+        ans = False
+    if not re.search(r"[A-Z]", password):
+        ans = False
+    if not re.search(r"[a-z]", password):
+        ans = False
+    if not re.search(r"\d", password):
+        ans = False
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        ans = False
+    if ans == False:
         return jsonify({"available": False})
     else:
         return jsonify({"available": True})
