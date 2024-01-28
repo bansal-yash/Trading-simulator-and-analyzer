@@ -90,7 +90,7 @@ for (i = 0; i < l; i++) {
               console.log(selectedElements[integerArray3[i]].innerHTML);
             }
           }
-          
+
           break;
         }
       }

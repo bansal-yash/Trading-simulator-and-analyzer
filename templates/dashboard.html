@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={{ url_for('static', filename='dashboard.css') }}>
+    <link rel="stylesheet" href={{ url_for('static', filename='dashboard.css' ) }}>
     <title>Sidebar Layout</title>
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -19,26 +21,28 @@
     </div>
 
     <div class="main-content">
-        <div class = "account">
-            <div class = "explore_areas">
+        <div class="account">
+            <div class="explore_areas">
                 <ul>
-                    <li><a href = #>Explore</a></li>
-                    <li><a href = #>Invest</a></li>
+                    <li><a href=#>Explore</a></li>
+                    <li><a href=#>Invest</a></li>
                 </ul>
             </div>
-            <div class = 'account_side'>
+            <div class='account_side'>
                 <ul>
-                    <li><a href = #>Premium</a></li>
+                    <li><a href=#>Premium</a></li>
                     <li>Score</li>
-                    <li><a href = #>Account</a></li>
+                    <li><a href=#>Account</a></li>
                 </ul>
             </div>
         </div>
         <div class="dashboard">
-            <div class= "dash_text">
-                <div><h1>Dashboard</h1></div>
+            <div class="dash_text">
+                <div>
+                    <h1>Dashboard</h1>
+                </div>
             </div>
-            <div class = "box">
+            <div class="box">
                 <div class="box_in" style="background-color: #d9ebf7;">Box 1</div>
                 <div class="box_in" style="background-color: #f8dbfc;">Box 2</div>
                 <div class="box_in" style="background-color: #fbe5de;">Box 3</div>
@@ -53,17 +57,18 @@
                 <!-- <div class="box">Box 12</div> -->
             </div>
 
-            <div class = "plots">
-                <div class="column" >
+            <div class="plots">
+                <div class="column">
                     <iframe src="{{ url_for('second_page') }}" width="100%" height="100%"></iframe>
 
 
                 </div>
-                <div class="column" >Plot2</div>
+                <div class="column">Plot2</div>
             </div>
         </div>
-        <div class = "main"></div>
+        <div class="main"></div>
     </div>
 
 </body>
+
 </html>

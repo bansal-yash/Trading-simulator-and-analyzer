@@ -1,32 +1,34 @@
-body{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    /* background: #0a0a23; */
-    padding: 0px;
-    width: 650px;
+body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* background: #0a0a23; */
+  padding: 0px;
+  width: 650px;
 }
 
-.customize{
-    display: flex;
-    justify-content: space-between;
-    /* background: #0a0a23; */
-    background: white;
-    height:50px
+.customize {
+  display: flex;
+  justify-content: space-between;
+  /* background: #0a0a23; */
+  background: white;
+  height: 50px
 }
 
-.customize ul{
-    display: flex;
-    list-style-type: none;
-    margin-top: 8px;
-    padding-left: 10px;
+.customize ul {
+  display: flex;
+  list-style-type: none;
+  margin-top: 8px;
+  padding-left: 10px;
 }
-ul li{
-    text-decoration: none;
-    color: black;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+ul li {
+  text-decoration: none;
+  color: black;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-.custom-select{
+
+.custom-select {
   border: none;
 }
 
@@ -48,8 +50,8 @@ ul li{
 }
 
 .custom-select select {
-  display: none; /*hide original SELECT element: */
-  
+  display: none;
+  /*hide original SELECT element: */
 }
 
 .select-selected {
@@ -78,7 +80,8 @@ ul li{
 }
 
 /* style the items (options), including the selected item: */
-.select-items div,.select-selected {
+.select-items div,
+.select-selected {
   color: #0a0a23;
   padding: 8px 16px;
   border: 1px solid transparent;
@@ -106,18 +109,19 @@ ul li{
   display: none;
 }
 
-.select-items div:hover, .same-as-selected {
+.select-items div:hover,
+.same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-#select_multiple_stocks{
+#select_multiple_stocks {
   display: none;
   grid-template-columns: repeat(5, 1fr);
   justify-content: center;
   margin-inline-start: 10px;
 }
 
-.graph{
+.graph {
   height: 450px;
   background-color: #ddd;
 }

@@ -22,12 +22,42 @@
         <p class="lock-icon"> &#128274;</p>
         <h2>Forgot Password?</h2>
         <p>You can reset your Password here</p>
-        <form action = "/forgot-password" method = "POST">
-            <input type="text" class="passInput" name = 'phone' placeholder="Phone number">
-            <button>Reset Password</button>
+        <form action="/forgot-password" method="POST">
+            <input type="text" class="passInput" name='email' placeholder="email id">
+            <div class="availability-message" id="validity_message"></div>
+            <button type="submit" id="reset">Reset Password</button>
         </form>
-        
+
     </div>
+
+    <script>
+        // Function to check email availability
+        document.getElementsByName('email').addEventListener('input', function () {
+            var emailInput = this.value;
+            var availabilityMessage = document.getElementById('validity_message');
+            var reset_button = document.getElementById('reset');
+
+            // Make fetch request to check email id availability
+            fetch('/check-email-forgot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'email=' + emailInput
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exist) {
+                        availabilityMessage.innerHTML = '';
+                        reset_button.disabled = false; // Enable submit button
+                    } else {
+                        availabilityMessage.innerHTML = '<span style="color:black;">Please enter valid registered email</span>';
+                        reset_button.disabled = true; // Enable submit button
+                    }
+                })
+        });
+
+    </script>
 </body>
 
 </html>

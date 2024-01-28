@@ -65,19 +65,23 @@ def register():
 
     return render_template("register.html")
 
+
 @app.route("/verify-otp", methods=["GET", "POST"])
 def verify_otp():
     if request.method == "POST":
         entered_otp = request.form["otp"]
-        if session.get('otp') == entered_otp:
-            username = session.pop('username')
-            phone = session.pop('phone')
-            email = session.pop('email')
-            password = session.pop('password')
+        if session.get("otp") == entered_otp:
+            username = session.pop("username")
+            phone = session.pop("phone")
+            email = session.pop("email")
+            password = session.pop("password")
 
             hashed_password = generate_password_hash(password, method="pbkdf2:sha256")
             new_user = User(
-                username=username, phone=phone, email=email, password_hash=hashed_password
+                username=username,
+                phone=phone,
+                email=email,
+                password_hash=hashed_password,
             )
             db.session.add(new_user)
             db.session.commit()
@@ -120,9 +124,63 @@ def logout():
     return redirect(url_for("index"))
 
 
-@app.route("/forgot-password")
+@app.route("/forgot-password", methods=["POST", "GET"])
 def forgot_pass():
+    if request.method == "POST":
+        email = request.form["email"]
+        otp = "".join(random.choices("0123456789", k=6))  # 6-digit OTP
+        subject = "OTP to reset your password"
+        message = "Your OTP is " + otp
+        OTP_send.send_email(email, subject, message)
+
+        session["otp"] = otp
+        session["email"] = email
+
+        return redirect(url_for("verify_otp_forgot"))
+
     return render_template("forgot_pass.html")
+
+
+@app.route("/verify-otp-forgot", methods=["GET", "POST"])
+def verify_otp_forgot():
+    if request.method == "POST":
+        entered_otp = request.form["otp"]
+        if session["otp"] == entered_otp:
+            return redirect(url_for("new_password"))
+        else:
+            flash("Try again")
+
+    return render_template("change_password.html")
+
+
+@app.route("/new-password", methods=["GET", "POST"])
+def new_password():
+    if request.method == "POST":
+        email = session.pop("email")
+        new_password = request.form["password"]
+
+        user = User.query.filter_by(email=email).first()
+
+        hashed_password = generate_password_hash(new_password, method="pbkdf2:sha256")
+        user.password_hash = hashed_password  # Update user's password hash
+
+        db.session.commit()
+
+        flash("Password changed successfully")
+        return redirect(url_for("index"))
+
+    return render_template("new_password.html")
+
+
+@app.route("/check-email-forgot", methods=["POST"])
+def check_email_forgot():
+    email = request.form["email"]
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+        return jsonify({"exist": True})
+    else:
+        return jsonify({"exist": False})
 
 
 @app.route("/check-username", methods=["POST"])
@@ -157,6 +215,7 @@ def check_email():
     email = request.form["email"]
     user = User.query.filter_by(email=email).first()
     pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+
     if bool(re.match(pattern, email)) == 0:
         return jsonify({"available": False, "reason": "invalid"})
     elif user:
@@ -169,6 +228,7 @@ def check_email():
 def check_password():
     password = request.form["password"]
     ans = True
+
     if len(password) < 8:
         ans = False
     if not re.search(r"[A-Z]", password):
