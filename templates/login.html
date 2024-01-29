@@ -12,18 +12,23 @@
 <body>
     <div class="Intro top">
         <div class="logo ">
-            <h1>&infin; Infty</h1>
+            <h1><a href="/about">&infin; Infty</a></h1>
         </div>
         <div class="somethingmore">
             <ul>
-                <li><a href=#>About Us</a></li>
-                <li><a href=#>Contact Us</a></li>
-                <li><a href=#>Help</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/help">Help</a></li>
             </ul>
         </div>
     </div>
     <div class="login-container">
         <h2>&#128274; Login</h2>
+        <div class="valid" id="valid">
+            {% if message %}
+            <p>{{ message }}</p>
+            {% endif %}
+        </div>
         <form action="/login" method="post">
             <div class="form-group ">
                 <span>&#128100;</span>
@@ -33,18 +38,17 @@
                 <span>&#128273;</span>
                 <input type="password" name="password" placeholder="Password" required>
             </div>
+
             <div class="form-group">
                 <button type="submit">Login</button>
             </div>
         </form>
         <div class="additional-links">
-            <!-- <p><a href="/forgot-password">Forgot Password? </a><a href="/register">Create New Account</a></p> -->
             <ul>
                 <li><a href="/register">Create Account</a></li>
-                <li><a href="/forgot-password">Forgot Password?</li>
+                <li><a href="/forgot-password">Forgot Password?</a></li>
             </ul>
         </div>
-
     </div>
 </body>
 

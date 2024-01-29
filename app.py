@@ -39,7 +39,7 @@ with app.app_context():
 
 @app.route("/")
 def index():
-    return render_template("login.html")
+    return render_template("about.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -87,26 +87,31 @@ def verify_otp():
             db.session.commit()
 
             flash("Registration successful! Please login.")
-            return redirect(url_for("index"))
+            return redirect(url_for("login"))
         else:
             flash("Invalid OTP. Please try again.")
 
     return render_template("verify_otp.html")
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    username = request.form["username"]
-    password = request.form["password"]
-    user = User.query.filter_by(username=username).first()
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        user = User.query.filter_by(username=username).first()
 
-    if user and check_password_hash(user.password_hash, password):
-        session["user_id"] = user.id
-        session["username"] = user.username
-        return redirect(url_for("dashboard"))
-    else:
-        flash("Invalid username or password", "error")
-        return redirect(url_for("index"))
+        if user and check_password_hash(user.password_hash, password):
+            session["user_id"] = user.id
+            session["username"] = user.username
+            return redirect(url_for("dashboard"))
+        else:
+            flash("Invalid username or password", "error")
+            return render_template(
+                "login.html", message="Wrong credentials, please try again."
+            )
+
+    return render_template("login.html")
 
 
 @app.route("/dashboard")
@@ -128,7 +133,7 @@ def logout():
 def forgot_pass():
     if request.method == "POST":
         email = request.form["email"]
-        otp = "".join(random.choices("0123456789", k=6))  # 6-digit OTP
+        otp = "".join(random.choices("0123456789", k=6))
         subject = "OTP to reset your password"
         message = "Your OTP is " + otp
         OTP_send.send_email(email, subject, message)
@@ -148,7 +153,9 @@ def verify_otp_forgot():
         if session["otp"] == entered_otp:
             return redirect(url_for("new_password"))
         else:
-            flash("Try again")
+            return render_template(
+                "change_password.html", message="Wrong otp, please try again."
+            )
 
     return render_template("change_password.html")
 
@@ -162,12 +169,14 @@ def new_password():
         user = User.query.filter_by(email=email).first()
 
         hashed_password = generate_password_hash(new_password, method="pbkdf2:sha256")
-        user.password_hash = hashed_password  # Update user's password hash
+        user.password_hash = hashed_password
 
         db.session.commit()
 
         flash("Password changed successfully")
-        return redirect(url_for("index"))
+        return render_template(
+            "login.html", message="Password changed successfully. Please login"
+        )
 
     return render_template("new_password.html")
 
@@ -248,6 +257,21 @@ def check_password():
 @app.route("/second_page")
 def second_page():
     return render_template("graph.html")
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+
+@app.route("/help")
+def help():
+    return render_template("help.html")
 
 
 if __name__ == "__main__":

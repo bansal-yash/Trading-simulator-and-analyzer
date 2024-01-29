@@ -2,18 +2,9 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Font Awesome Icons  -->
-
-    <!-- Google Fonts  -->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"> -->
-
     <title>Forgot Password UI Using CSS - @code.scientist x @codingtorque</title>
 </head>
 
@@ -23,7 +14,7 @@
         <h2>Forgot Password?</h2>
         <p>You can reset your Password here</p>
         <form action="/forgot-password" method="POST">
-            <input type="text" class="passInput" name='email' placeholder="email id">
+            <input type="text" class="passInput" name='email' id="email1" placeholder="email id">
             <div class="availability-message" id="validity_message"></div>
             <button type="submit" id="reset">Reset Password</button>
         </form>
@@ -31,13 +22,11 @@
     </div>
 
     <script>
-        // Function to check email availability
-        document.getElementsByName('email').addEventListener('input', function () {
+        document.getElementById('email1').addEventListener('input', function () {
             var emailInput = this.value;
             var availabilityMessage = document.getElementById('validity_message');
             var reset_button = document.getElementById('reset');
 
-            // Make fetch request to check email id availability
             fetch('/check-email-forgot', {
                 method: 'POST',
                 headers: {
@@ -49,10 +38,10 @@
                 .then(data => {
                     if (data.exist) {
                         availabilityMessage.innerHTML = '';
-                        reset_button.disabled = false; // Enable submit button
+                        reset_button.disabled = false;
                     } else {
                         availabilityMessage.innerHTML = '<span style="color:black;">Please enter valid registered email</span>';
-                        reset_button.disabled = true; // Enable submit button
+                        reset_button.disabled = true;
                     }
                 })
         });
