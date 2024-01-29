@@ -122,13 +122,6 @@ def dashboard():
         return redirect(url_for("index"))
 
 
-@app.route("/logout")
-def logout():
-    session.pop("user_id", None)
-    session.pop("username", None)
-    return redirect(url_for("index"))
-
-
 @app.route("/forgot-password", methods=["POST", "GET"])
 def forgot_pass():
     if request.method == "POST":
@@ -272,6 +265,21 @@ def contact():
 @app.route("/help")
 def help():
     return render_template("help.html")
+
+
+@app.route("/logout")
+def logout():
+    session.pop("user_id", None)
+    session.pop("username", None)
+    return redirect(url_for("index"))
+
+
+@app.route("/get-profile-info", methods=["POST"])
+def get_info():
+    username = session["username"]
+    user = User.query.filter_by(username=username).first()
+    email = user.email
+    return jsonify({"username": username, "email": email})
 
 
 if __name__ == "__main__":

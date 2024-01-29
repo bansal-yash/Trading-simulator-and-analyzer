@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -349,7 +349,7 @@
                     <li><a href="#">&#128176;</a></li>
                     <li>
                         <div class="dropdown">
-                            <div class="dropdown-btn" onclick="toggleDropdown('dropdown1',event)">
+                            <div class="dropdown-btn" id='profileicon' onclick="toggleDropdown('dropdown1',event)">
                                 <i class="fas fa-user user-icon"></i>
                             </div>
                             <div class="dropdown-content color" id="dropdown1">
@@ -360,8 +360,8 @@
                                             <img src="p6.jpg">
                                         </div>
                                         <div>
-                                            <div style="font-size: 15px">Shivam Sawarn</div>
-                                            <div style="font-size: 13px">shivamsawarnn0511@gmail.com</div>
+                                            <div style="font-size: 15px" id="profile_name"></div>
+                                            <div style="font-size: 13px" id="profile_email"></div>
                                         </div>
                                     </div>
                                 </a>
@@ -375,7 +375,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <a href="#" class="color">
+                                <a href="/contact" class="color">
                                     <div class="dropdown-items"><i class="fas fa-headset"></i></i></i>
                                         Customer Support</div>
                                 </a>
@@ -385,7 +385,7 @@
                                         Settings</div>
                                 </a>
 
-                                <a href="#" class="color">
+                                <a href="/logout" class="color">
                                     <div class="dropdown-items"><i class="fas fa-sign-out-alt"></i>
                                         LogOut</div>
                                 </a>
@@ -421,7 +421,7 @@
 
             <div class="plots">
                 <div class="column">
-                    <iframe id="myFrame" src="graph.html" width="100%" height="100%"></iframe>
+                    <iframe id="myFrame" src="{{url_for('second_page')}}" width="100%" height="100%"></iframe>
                 </div>
                 <div class="column">Plot2</div>
             </div>
@@ -561,6 +561,24 @@
                 document.getElementById('but3').style.backgroundColor = "rgb(230, 207, 230)";
             }
         }
+
+        document.getElementById('profileicon').addEventListener('click', function () {
+            var nameElement = document.getElementById('profile_name');
+            var emailElement = document.getElementById('profile_email');
+
+            fetch('/get-profile-info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    nameElement.textContent = data.username;
+                    emailElement.textContent = data.email;
+                })
+                .catch(error => console.error('Error fetching profile info:', error));
+        });
 
     </script>
 </body>
