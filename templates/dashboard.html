@@ -2,66 +2,426 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={{ url_for('static', filename='dashboard.css' ) }}>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .icon img {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin: 5px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            font-family: Arial;
+        }
+
+        #nav_main {
+            color: rgb(68, 71, 91);
+            background-color: #eee;
+            font-size: 20px;
+            color: rgb(68, 71, 91);
+            position: relative;
+            margin-right: 40px;
+        }
+
+        #nav_main .dropdown-btn {
+            border: none;
+
+            font-size: 20px;
+
+            padding: 0px;
+            cursor: pointer;
+        }
+
+        #nav_main ul {
+            list-style: none;
+            display: flex;
+
+        }
+
+        #nav_main ul li {
+            margin-inline: 16px;
+        }
+
+        #nav_main a {
+            text-decoration: none;
+
+        }
+
+        .dropdown-content {
+            display: none;
+            z-index: 1;
+            position: absolute;
+            margin-right: 10px;
+            /* Add some margin to the right */
+            width: 360px;
+            right: 0;
+            top: 60px;
+            background-color: white;
+            font-family: GrowwSans, NotoSans, system-ui;
+        }
+
+        .color {
+            color: rgb(68, 71, 91);
+            background-color: white;
+            font-size: 16px;
+
+        }
+
+        .dropdown-content div {
+            padding: 5px;
+            padding-inline: 10px;
+        }
+
+        .dropdown-content #account {
+            display: flex;
+        }
+
+        .dropdown-content #account div {
+            padding: 0px;
+        }
+
+
+
+        .dropdown-content a {
+            padding: 0 !important;
+            /* Remove padding */
+            font-size: 13px;
+        }
+
+        .search-container {
+            display: flex;
+            margin-right: 170px;
+            margin-top: 16px;
+            background-color: white;
+            align-items: center;
+            padding: 5px;
+            height: 30px !important;
+            border-radius: 5px;
+        }
+
+        #search-input {
+            border: none;
+            outline: none;
+            width: 400px;
+            font-size: 14px;
+        }
+
+        .dropdown-items {
+            padding: 10px !important;
+            padding-inline: 20px !important;
+            font-size: 16px !important;
+            margin-bottom: 10px;
+        }
+
+        #dropdown2 {
+            display: none;
+            z-index: 1;
+            position: absolute;
+            top: 60px;
+            width: 440px;
+            right: 170px;
+            background-color: white;
+            font-family: GrowwSans, NotoSans, system-ui;
+            border-radius: 15px;
+        }
+
+        .search-container-dropdown {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 5;
+        }
+
+        #options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        #options div {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .options-button {
+            text-align: center;
+        }
+
+        .centered-button {
+            display: inline-block;
+            width: 86px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-size: 12px;
+            background-color: #efefef;
+            color: rgb(68, 71, 91);
+            border-radius: 13px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #dropdown-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .searchable_items {
+            display: grid;
+            grid-template-columns: 5fr 1fr;
+            gap: 10px;
+        }
+
+        .search_item_info {
+            margin: 12px;
+        }
+
+        .type_of_search {
+            margin: 12px 0;
+        }
+
+        .searchable_items:hover {
+            background-color: #e6e5e5;
+            cursor: pointer;
+        }
+
+        .name_of_search_item {
+            font-size: 15px;
+        }
+
+        .symbol_of_search_items {
+            font-size: 13px;
+        }
+
+        #searchable_items_box1 {
+            display: inherit;
+        }
+
+        #searchable_items_box2 {
+            display: none;
+        }
+
+        #searchable_items_box3 {
+            display: none;
+        }
+
+        #but1 {
+            background-color: rgb(230, 207, 230);
+        }
+    </style>
     <title>Sidebar Layout</title>
 </head>
 
 <body>
-
-    <div class="sidebar">
+    <div id="dimming-layer"></div>
+    <div id="sidebar">
         <h2>Sidebar</h2>
         <ul>
             <li>Option 1</li>
             <li>Option 2</li>
             <li>Option 3</li>
-            <!-- Add more options as needed -->
         </ul>
     </div>
 
-    <div class="main-content">
-        <div class="account">
-            <div class="explore_areas">
-                <ul>
-                    <li><a href=#>Explore</a></li>
-                    <li><a href=#>Invest</a></li>
-                </ul>
+    <div id="main-content">
+        <div class="navbar">
+            <div class="search-container-dropdown">
+                <div class="search-container" onclick="toggleDropdown('dropdown2',event)">
+                    <div><i class="fas fa-search" style="margin-inline: 5px;"></i></div>
+                    <div class="search-main">
+                        <input type="text" id="search-input" placeholder="Search...">
+                    </div>
+                    <div id="dropdown2">
+                        <div id="dropdown2_content">
+                            <div id="options">
+                                <div class="options-button">
+                                    <button class="centered-button" onclick="search_mode_options(1)"
+                                        id="but1">All</button>
+                                </div>
+                                <div class="options-button">
+                                    <button class="centered-button" onclick="search_mode_options(2)"
+                                        id="but2">Stocks</button>
+                                </div>
+                                <div class="options-button">
+                                    <button class="centered-button" onclick="search_mode_options(3)"
+                                        id="but3">Indices</button>
+                                </div>
+                            </div>
+                            <div id="searchable_items_box1">
+                                <div class="searchable_items">
+                                    <div class="search_item_info">
+                                        <div class="name_of_search_item">
+                                            State Bank of India
+                                        </div>
+                                        <div class="symbol_of_search_items">
+                                            SBIN
+                                        </div>
+                                    </div>
+                                    <div class="type_of_search">
+                                        Stock
+                                    </div>
+                                </div>
+                                <div class="searchable_items">
+                                    <div class="search_item_info">
+                                        <div class="name_of_search_item">
+                                            Reliance Industries Ltd.
+                                        </div>
+                                        <div class="symbol_of_search_items">
+                                            Reliance
+                                        </div>
+                                    </div>
+                                    <div class="type_of_search">
+                                        Stock
+                                    </div>
+                                </div>
+                                <div class="searchable_items">
+                                    <div class="search_item_info">
+                                        <div class="name_of_search_item">
+                                            NIFY 50
+                                        </div>
+                                        <div class="symbol_of_search_items">
+                                            NIFTY
+                                        </div>
+                                    </div>
+                                    <div class="type_of_search">
+                                        Index
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="searchable_items_box2">
+                                <div class="searchable_items">
+                                    <div class="search_item_info">
+                                        <div class="name_of_search_item">
+                                            State Bank of India
+                                        </div>
+                                        <div class="symbol_of_search_items">
+                                            SBIN
+                                        </div>
+                                    </div>
+                                    <div class="type_of_search">
+                                        Stock
+                                    </div>
+                                </div>
+                                <div class="searchable_items">
+                                    <div class="search_item_info">
+                                        <div class="name_of_search_item">
+                                            Reliance Industries Ltd.
+                                        </div>
+                                        <div class="symbol_of_search_items">
+                                            Reliance
+                                        </div>
+                                    </div>
+                                    <div class="type_of_search">
+                                        Stock
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="searchable_items_box3">
+                                <div class="searchable_items">
+                                    <div class="search_item_info">
+                                        <div class="name_of_search_item">
+                                            NIFY 50
+                                        </div>
+                                        <div class="symbol_of_search_items">
+                                            NIFTY
+                                        </div>
+                                    </div>
+                                    <div class="type_of_search">
+                                        Index
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
-            <div class='account_side'>
+            <div id="nav_main">
                 <ul>
-                    <li><a href=#>Premium</a></li>
-                    <li>Score</li>
-                    <li><a href=#>Account</a></li>
+                    <li><a href="#">🛒</a></li>
+                    <li><a href="#">&#128176;</a></li>
+                    <li>
+                        <div class="dropdown">
+                            <div class="dropdown-btn" onclick="toggleDropdown('dropdown1',event)">
+                                <i class="fas fa-user user-icon"></i>
+                            </div>
+                            <div class="dropdown-content color" id="dropdown1">
+                                <a class="color" href="profile.html">
+                                    <div id="account">
+
+                                        <div class="icon">
+                                            <img src="p6.jpg">
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 15px">Shivam Sawarn</div>
+                                            <div style="font-size: 13px">shivamsawarnn0511@gmail.com</div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <div class="toggle-container" onclick="toggleCheckbox(0)">
+                                    <div><i class="fas fa-sun"></i> Mode</div>
+                                    <div class="toggle-switch">
+                                        <label class="switch">
+                                            <input type="checkbox" id="toggleCheckbox" onclick="toggleCheckbox(1)">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <a href="#" class="color">
+                                    <div class="dropdown-items"><i class="fas fa-headset"></i></i></i>
+                                        Customer Support</div>
+                                </a>
+
+                                <a href="profile.html" class="color">
+                                    <div class="dropdown-items"><i class="fas fa-cog"></i></i>
+                                        Settings</div>
+                                </a>
+
+                                <a href="#" class="color">
+                                    <div class="dropdown-items"><i class="fas fa-sign-out-alt"></i>
+                                        LogOut</div>
+                                </a>
+
+                            </div>
+                        </div>
+
+
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="dashboard">
-            <div class="dash_text">
+        <div id="dashboard">
+            <div id="dash_text">
                 <div>
                     <h1>Dashboard</h1>
                 </div>
             </div>
             <div class="box">
-                <div class="box_in" style="background-color: #d9ebf7;">Box 1</div>
-                <div class="box_in" style="background-color: #f8dbfc;">Box 2</div>
-                <div class="box_in" style="background-color: #fbe5de;">Box 3</div>
-                <div class="box_in" style="background-color: #dbf5e2;">Box 4</div>
-                <div class="box_in" style="background-color: #e5eebb;">Box 5</div>
-                <div class="box_in" style="background-color: #def3f6;">Box 6</div>
-                <div class="box_in" style="background-color: #bbbeee;">Box 7</div>
-                <div class="box_in" style="background-color: #eebbbb;">Box 8</div>
-                <div class="box_in" style="background-color: #e6cc90;">Box 9</div>
-                <div class="box_in" style="background-color: #fbf7fb;">Box 10</div>
+                <div class="box_in" style="background-color: #d9ebf7">Box 1</div>
+                <div class="box_in" style="background-color: #f8dbfc">Box 2</div>
+                <div class="box_in" style="background-color: #fbe5de">Box 3</div>
+                <div class="box_in" style="background-color: #dbf5e2">Box 4</div>
+                <div class="box_in" style="background-color: #e5eebb">Box 5</div>
+                <div class="box_in" style="background-color: #def3f6">Box 6</div>
+                <div class="box_in" style="background-color: #bbbeee">Box 7</div>
+                <div class="box_in" style="background-color: #eebbbb">Box 8</div>
+                <div class="box_in" style="background-color: #e6cc90">Box 9</div>
+                <div class="box_in" style="background-color: #fbf7fb">Box 10</div>
                 <!-- <div class="box">Box 12</div> -->
                 <!-- <div class="box">Box 12</div> -->
             </div>
 
             <div class="plots">
                 <div class="column">
-                    <iframe src="{{ url_for('second_page') }}" width="100%" height="100%"></iframe>
-
-
+                    <iframe id="myFrame" src="graph.html" width="100%" height="100%"></iframe>
                 </div>
                 <div class="column">Plot2</div>
             </div>
@@ -69,6 +429,141 @@
         <div class="main"></div>
     </div>
 
+
+    <script>
+        var i = 0;
+        var j = 0;
+        function toggleCheckbox(checker) {
+            var checkbox = document.getElementById("toggleCheckbox");
+            if (checker === 0) {
+                checkbox.checked = !checkbox.checked;
+            }
+            if (i === 0) {
+                document.getElementById('main-content').style.backgroundColor = '#222';
+                document.getElementById('nav_main').style.backgroundColor = '#222';
+                document.getElementById('nav_main').style.color = 'rgb(255, 254, 221)';
+                document.getElementById('sidebar').style.backgroundColor = '#000';
+                document.getElementById('sidebar').style.color = 'rgb(255, 254, 221)';
+
+                var colorElements = document.querySelectorAll('.color');
+
+                colorElements.forEach(function (element) {
+                    element.style.backgroundColor = '#000';
+                    element.style.color = 'rgb(255, 254, 221)';
+                });
+                var colorElements = document.querySelectorAll('.column');
+
+                colorElements.forEach(function (element) {
+                    element.style.backgroundColor = '#000';
+                    element.style.color = 'rgb(255, 254, 221)';
+                });
+
+
+                i = 1;
+
+            } else {
+                document.getElementById('main-content').style.backgroundColor = '#eee';
+                document.getElementById('nav_main').style.backgroundColor = '#eee';
+                document.getElementById('nav_main').style.color = 'rgb(68, 71, 91)';
+                document.getElementById('sidebar').style.backgroundColor = '#fff';
+                document.getElementById('sidebar').style.color = 'rgb(68, 71, 91)';
+                i = 0;
+                var colorElements = document.querySelectorAll('.color');
+
+                colorElements.forEach(function (element) {
+                    element.style.backgroundColor = '#fff';
+                    element.style.color = 'rgb(68, 71, 91)';
+                });
+                var colorElements = document.querySelectorAll('.column');
+
+                colorElements.forEach(function (element) {
+                    element.style.backgroundColor = '#fff';
+                    element.style.color = 'rgb(68, 71, 91)';
+                });
+            }
+
+        }
+
+        function toggleDimmingLayer() {
+            var dimmingLayer = document.getElementById('dimming-layer');
+            dimmingLayer.style.display = (dimmingLayer.style.display === 'block') ? 'none' : 'block';
+        }
+
+
+        // Close the dropdowns if the user clicks outside of them
+        window.onclick = function (event) {
+
+            var userIcon = document.querySelector(".user-icon");
+            var userIconDropdown = document.querySelector(".dropdown-content");
+            var searchContainerDropdown = document.getElementById("dropdown2");
+
+            // Check if the click is outside the user icon and its dropdown
+            if (!(event.target === userIcon || event.target.closest(".dropdown-content"))) {
+                if (userIconDropdown.style.display === "block") {
+                    userIconDropdown.style.display = "none";
+                }
+            }
+
+            // Check if the click is outside the search container dropdown
+            if (!(event.target.matches("#dropdown2"))) {
+                console.log("Hello");
+                if (searchContainerDropdown.style.display === "block") {
+                    searchContainerDropdown.style.display = "none";
+                    toggleDimmingLayer();
+                    j = 0;
+                }
+            }
+        };
+
+        function toggleDropdown(dropdownId, event) {
+            var dropdownContent = document.getElementById(dropdownId);
+            if (dropdownId === "dropdown2") {
+                if (j === 0) {
+                    toggleDimmingLayer();
+                    j = 1;
+                }
+                dropdownContent.style.display = 'block';
+                console.log(dropdownId);
+                event.stopPropagation();
+            } else {
+                console.log(dropdownId);
+                dropdownContent.style.display =
+                    dropdownContent.style.display === "block" ? "none" : "block";
+                console.log(dropdownContent.style.display);
+            }
+
+        }
+
+        function search_mode_options(mode) {
+            if (mode === 1) {
+                document.getElementById('searchable_items_box1').style.display = "inherit";
+                document.getElementById('searchable_items_box2').style.display = "none";
+                document.getElementById('searchable_items_box3').style.display = "none";
+                document.getElementById('but1').style.backgroundColor = "rgb(230, 207, 230)";
+                document.getElementById('but2').style.backgroundColor = "#efefef";
+                document.getElementById('but3').style.backgroundColor = "#efefef";
+
+
+            } else if (mode === 2) {
+                document.getElementById('searchable_items_box1').style.display = "none";
+                document.getElementById('searchable_items_box2').style.display = "inherit";
+                document.getElementById('searchable_items_box3').style.display = "none";
+                document.getElementById('but1').style.backgroundColor = "#efefef";
+                document.getElementById('but2').style.backgroundColor = "rgb(230, 207, 230)";
+                document.getElementById('but3').style.backgroundColor = "#efefef";
+
+            } else {
+                document.getElementById('searchable_items_box1').style.display = "none";
+                document.getElementById('searchable_items_box2').style.display = "none";
+                document.getElementById('searchable_items_box3').style.display = "inherit";
+                document.getElementById('but1').style.backgroundColor = "#efefef";
+                document.getElementById('but2').style.backgroundColor = "#efefef";
+                document.getElementById('but3').style.backgroundColor = "rgb(230, 207, 230)";
+            }
+        }
+
+
+    </script>
 </body>
 
 </html>
