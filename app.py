@@ -86,10 +86,13 @@ def verify_otp():
             db.session.add(new_user)
             db.session.commit()
 
-            flash("Registration successful! Please login.")
-            return redirect(url_for("login"))
+            return render_template(
+                "login.html", message="Registration successful! Please login."
+            )
         else:
-            flash("Invalid OTP. Please try again.")
+            return render_template(
+                "verify_otp.html", message="Invalid otp"
+            )
 
     return render_template("verify_otp.html")
 
@@ -106,7 +109,6 @@ def login():
             session["username"] = user.username
             return redirect(url_for("dashboard"))
         else:
-            flash("Invalid username or password", "error")
             return render_template(
                 "login.html", message="Wrong credentials, please try again."
             )

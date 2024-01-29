@@ -10,6 +10,11 @@
 <body>
     <h2>Verify OTP</h2>
     <p>Please enter the OTP sent to your phone/email to complete registration:</p>
+    <div class="valid" id="valid">
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+    </div>
     <form method="post">
         <div>
             <label for="otp">Enter OTP:</label>
