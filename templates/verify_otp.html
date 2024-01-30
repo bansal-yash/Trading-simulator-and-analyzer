@@ -1,27 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify OTP</title>
+    <style>
+        /* Add some basic styling for the OTP input box */
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            font-family: GrowwSans, NotoSans, system-ui;
+            background-color: #fbfbfb;
+        }
+        #card{
+            display: flex;
+            flex-direction: column;
+            padding-inline: 20px;
+            width: 400px;
+            background-color: white ;
+            border-radius: 10px; /* Optional: Add border-radius for rounded corners */
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .otp-input {
+            display: flex;
+            justify-content: center;
+        }
+
+        .otp-input input {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0 5px;
+            background-color: #f1f1f8;
+        }
+        .submit-button {
+            background-color: blue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        a{
+            text-decoration: none;
+            color: blue;
+        }
+        #code_part{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            margin-top: 5px;
+        }
+        #top_part{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            color: rgb(68, 71, 91);
+        }
+        #submission_part{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        h2{
+            margin-bottom: 5px;
+            color: black;
+        }
+        #logo{
+            margin-top: 20px;
+            margin-bottom: 100px;
+        }
+    </style>
+    <title>otp</title>
 </head>
-
 <body>
-    <h2>Verify OTP</h2>
-    <p>Please enter the OTP sent to your phone/email to complete registration:</p>
-    <div class="valid" id="valid">
-        {% if message %}
-        <p>{{ message }}</p>
-        {% endif %}
+    <div id="logo">
+        <h1>&infin; Infty</h1>
     </div>
-    <form method="post">
-        <div>
-            <label for="otp">Enter OTP:</label>
-            <input type="text" id="otp" name="otp" required>
+    <div id="card">
+        <div id="top_part">
+            <div><h2>Two Step Verification</h2></div>
+        <div>Enter the otp send to you email/phone number</div>
         </div>
-        <button type="submit">Verify OTP</button>
-    </form>
-</body>
 
+        <div style="color: rgb(68, 71, 91); margin-left:5px">Enter your 6 digit security code</div>
+        <div id="code_part">
+            <form method="post">
+                <div class="otp-input">
+                    <input type="text" maxlength="1" oninput="moveToNext(this)" />
+                    <input type="text" maxlength="1" oninput="moveToNext(this)" />
+                    <input type="text" maxlength="1" oninput="moveToNext(this)" />
+                    <input type="text" maxlength="1" oninput="moveToNext(this)" />
+                    <input type="text" maxlength="1" oninput="moveToNext(this)" />
+                    <input type="text" maxlength="1" oninput="moveToNext(this)" />
+                </div>
+            </form>
+           
+        </div>
+        <div id="submission_part">
+            <div><button class="submit-button" type="submit">Submit</button></div>
+            <div>Didn't get the code ? <a href="#"> Resend (1/3)</a></div>
+        </div>
+        
+    </div>
+    
+
+    <!-- OTP input box -->
+    
+
+    <!-- You can add a button for submitting the OTP here -->
+
+    <script>
+        // JavaScript function to move focus to the next input box
+        function moveToNext(input) {
+            if (input.value.length === input.maxLength) {
+                var nextInput = input.nextElementSibling;
+                if (nextInput !== null) {
+                    nextInput.focus();
+                }
+            }
+        }
+    </script>
+</body>
 </html>
