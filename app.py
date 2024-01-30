@@ -17,13 +17,11 @@ import re, random
 app = Flask(__name__)
 app.secret_key = "Barf_Ka_Gola"
 
-# Database Configuration
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
-# User Model
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
@@ -32,7 +30,6 @@ class User(db.Model):
     password_hash = db.Column(db.String(200), nullable=False)
 
 
-# Initialize Database within Application Context
 with app.app_context():
     db.create_all()
 
@@ -50,9 +47,11 @@ def register():
         email = request.form["email"]
         password = request.form["password"]
 
-        otp = "".join(random.choices("0123456789", k=6))  # 6-digit OTP
-        subject = "OTP to register for infty"
-        message = "Your OTP is " + otp
+        otp = "".join(random.choices("0123456789", k=6))
+        subject = "Infty Signup:- E-mail Verification"
+        message = (
+            otp + " is your OTP for username " + username + " to register for Infty."
+        )
         OTP_send.send_email(email, subject, message)
 
         session["otp"] = otp
@@ -69,7 +68,14 @@ def register():
 @app.route("/verify-otp", methods=["GET", "POST"])
 def verify_otp():
     if request.method == "POST":
-        entered_otp = request.form["otp"]
+        entered_otp = (
+            request.form["a"]
+            + request.form["b"]
+            + request.form["c"]
+            + request.form["d"]
+            + request.form["e"]
+            + request.form["f"]
+        )
         if session.get("otp") == entered_otp:
             username = session.pop("username")
             phone = session.pop("phone")
@@ -91,10 +97,25 @@ def verify_otp():
             )
         else:
             return render_template(
-                "verify_otp.html", message="Invalid otp"
+                "verify_otp.html", message="Invalid OTP. Please try again."
             )
 
     return render_template("verify_otp.html")
+
+
+@app.route("/resend-otp", methods=["GET", "POST"])
+def resend_otp():
+    otp = "".join(random.choices("0123456789", k=6))
+    subject = "Infty Signup:- E-mail Verification"
+    message = (
+        otp
+        + " is your OTP for username "
+        + session["username"]
+        + " to register for Infty."
+    )
+    OTP_send.send_email(session["email"], subject, message)
+    session["otp"] = otp
+    return redirect(url_for("verify_otp"))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -128,13 +149,18 @@ def dashboard():
 def forgot_pass():
     if request.method == "POST":
         email = request.form["email"]
+        user = User.query.filter_by(email=email).first()
+        username = user.username
         otp = "".join(random.choices("0123456789", k=6))
-        subject = "OTP to reset your password"
-        message = "Your OTP is " + otp
+        subject = "Infty Password change:- E-Mail Verification"
+        message = (
+            otp + " is your OTP for username " + username + " to reset the password."
+        )
         OTP_send.send_email(email, subject, message)
 
         session["otp"] = otp
         session["email"] = email
+        session["username"] = username
 
         return redirect(url_for("verify_otp_forgot"))
 
@@ -144,15 +170,39 @@ def forgot_pass():
 @app.route("/verify-otp-forgot", methods=["GET", "POST"])
 def verify_otp_forgot():
     if request.method == "POST":
-        entered_otp = request.form["otp"]
+        entered_otp = (
+            request.form["a"]
+            + request.form["b"]
+            + request.form["c"]
+            + request.form["d"]
+            + request.form["e"]
+            + request.form["f"]
+        )
         if session["otp"] == entered_otp:
             return redirect(url_for("new_password"))
         else:
             return render_template(
-                "change_password.html", message="Wrong otp, please try again."
+                "change_password.html", message="Invalid OTP. Please try again."
             )
 
     return render_template("change_password.html")
+
+
+@app.route("/resend-otp-forgot", methods=["GET", "POST"])
+def resend_otp_forgot():
+    otp = "".join(random.choices("0123456789", k=6))
+    subject = "Infty Password change:- E-Mail Verification"
+    message = (
+        otp
+        + " is your OTP for username "
+        + session["username"]
+        + " to reset the password."
+    )
+    OTP_send.send_email(session["email"], subject, message)
+
+    session["otp"] = otp
+
+    return redirect(url_for("verify_otp_forgot"))
 
 
 @app.route("/new-password", methods=["GET", "POST"])
@@ -167,8 +217,6 @@ def new_password():
         user.password_hash = hashed_password
 
         db.session.commit()
-
-        flash("Password changed successfully")
         return render_template(
             "login.html", message="Password changed successfully. Please login"
         )
