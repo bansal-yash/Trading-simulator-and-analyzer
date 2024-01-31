@@ -334,3 +334,25 @@ def get_info():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# @app.route("/send_stock_data")
+# def get_data():
+#     # Your data retrieval logic here
+#     #prev close, open, close, high, low, volume, avg volume
+#     data = [622.95, 625.45,624.2, 633.5,624.2, 16963543, 15975914]
+#     return jsonify({"data": data})
+
+
+# @app.route("/stock_page")
+# def open_stock_page():
+#     update_plot(fig, ticker_symbol)
+    
+#     # Save the updated plot as an HTML file
+#     save_plotly_figure(fig)
+
+#     # Load the saved Plotly figure HTML file
+#     with open('figure.html', 'r',encoding='utf-8') as file:
+#         plotly_figure_html = file.read()
+
+#     return render_template("stocks.html", plotly_figure_html=plotly_figure_html)
+    

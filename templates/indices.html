@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndexTracker - [Index Symbol]</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='indices.css') }}" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin: 0 15px;
+        }
+
+        nav li a {
+            text-decoration: none;
+            color: rgb(54, 57, 72);
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        #data_sets {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        .index-info {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .index-info p {
+            margin: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            line-height: 1.5;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chart-container {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-height: 400px;
+            /* Adjust the height as needed */
+        }
+
+        #top_gainers_losers{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .stock-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+        
+
+        .stock-box {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .symbol img{
+            height: 30px;
+            width: 30px;
+        }
+        
+        .stock_name{
+            font-size: 13px;
+        }
+        .blank{
+            height: 20px;
+        }
+        .market_price{
+            font-size: 14px;
+        }
+        .percent_change_profit{
+            font-size: 20px;
+            color: green;
+        }
+        
+
+        .news-feed {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dimming-layer"></div>
+
+    <div class="navbar">
+        <div id='logo'>&infin; Infty</h1>
+        </div>
+        <div class="search-container-dropdown">
+            <div class="search-container" onclick="toggleDropdown('dropdown2',event)">
+                <div><i class="fas fa-search" style="margin-inline: 5px;"></i></div>
+                <div><input type="text" id="search-input" placeholder="Search..."></div>
+                <div id="dropdown2">
+                    <div id="options">
+                        <div class="options-button">
+                            <button class="centered-button" onclick="search_mode_options(1)" id="but1">All</button>
+                        </div>
+                        <div class="options-button">
+                            <button class="centered-button" onclick="search_mode_options(2)" id="but2">Stocks</button>
+                        </div>
+                        <div class="options-button">
+                            <button class="centered-button" onclick="search_mode_options(3)" id="but3">Indices</button>
+                        </div>
+                    </div>
+                    <div id="searchable_items_box1">
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    State Bank of India
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    SBIN
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Stock
+                            </div>
+                        </div>
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    Reliance Industries Ltd.
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    Reliance
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Stock
+                            </div>
+                        </div>
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    NIFY 50
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    NIFTY
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Index
+                            </div>
+                        </div>
+                    </div>
+                    <div id="searchable_items_box2">
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    State Bank of India
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    SBIN
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Stock
+                            </div>
+                        </div>
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    Reliance Industries Ltd.
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    Reliance
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Stock
+                            </div>
+                        </div>
+                    </div>
+                    <div id="searchable_items_box3">
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    NIFY 50
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    NIFTY
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Index
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="nav_main">
+            <div id="nav_main_helper">
+                <ul>
+                    <li><a href="#"><i class="fas fa-shopping-cart font_awesome_icons"></i></a></li>
+                    <li><a href="#">&#128176;</a></li>
+                    <li>
+                        <div class="dropdown">
+                            <div class="dropdown-btn" id='profileicon' onclick="toggleDropdown('dropdown1',event)">
+                                <i class="fas fa-user user-icon"></i>
+                            </div>
+                            <div class="dropdown-content color" id="dropdown1">
+                                <a class="color" href="profile.html">
+                                    <div id="account">
+    
+                                        <div class="icon">
+                                            <img src="p6.jpg">
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 15px" id="profile_name"></div>
+                                            <div style="font-size: 13px" id="profile_email"></div>
+                                        </div>
+                                    </div>
+                                </a>
+    
+                                <div class="toggle-container" onclick="toggleCheckbox(0)">
+                                    <div><i class="fas fa-sun"></i> Mode</div>
+                                    <div class="toggle-switch">
+                                        <label class="switch">
+                                            <input type="checkbox" id="toggleCheckbox" onclick="toggleCheckbox(1)">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <a href="/contact" class="color">
+                                    <div class="dropdown-items"><i class="fas fa-headset"></i></i></i>
+                                        Customer Support</div>
+                                </a>
+    
+                                <a href="profile.html" class="color">
+                                    <div class="dropdown-items"><i class="fas fa-cog"></i></i>
+                                        Settings</div>
+                                </a>
+    
+                                <a href="/logout" class="color">
+                                    <div class="dropdown-items"><i class="fas fa-sign-out-alt"></i>
+                                        LogOut</div>
+                                </a>
+    
+                            </div>
+                        </div>
+    
+    
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+
+    <header>
+        <h1>IndexTracker</h1>
+        <p>[Tagline or Index Description]</p>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <ul>
+            <li><a href="#live-prices">Live Prices</a></li>
+            <li><a href="#interactive-chart">Interactive Chart</a></li>
+            <li><a href="#news-updates">News & Updates</a></li>
+            <li><a href="#top_gainers_losers">Top Gainers & Losers</a></li>
+            <!-- Add more sections as needed -->
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Live Stock Prices -->
+        <div id="data_sets">
+            <section id="live-prices" style="min-height: 200px;">
+                <h2>Live Stock Prices</h2>
+                <div class="index-info">
+                    <p id = "previous_open">Previous Close: 620</p>
+                    <p id="open">open: 620</p>
+                    <p id="close">Close: 620</p>
+                    <p id="high">High: 620</p>
+                    <p id="low">Low: 620</p>
+                    <p id="volume">Volume: 12,324,234</p>
+                    <p id="avg_volume">Average Volume: 213,434</p>
+                </div>
+            </section>
+
+            <section id="live-prices" style="min-height: 200px;">
+                <h2>Live Stock Prices</h2>
+                <div class="index-info">
+                    <p>Fifty Two week low: 620</p>
+                    <p>Fifty Two week high: 620</p>
+                    <p>Fifty Day Average: 620</p>
+                    <p>Two Hundred Day Average: 620</p>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- Interactive Chart -->
+        <section id="interactive-chart">
+            <h2>Interactive Chart</h2>
+            <div class="chart-container">
+                {{ plotly_figure_html | safe }}
+            </div>
+        </section>
+        <section id="top_gainers_losers" style="min-height: 200px;">
+            <div>
+                <h2>Top Gainers</h2>
+            
+                <div class="stock-info">
+                        <div class="stock-box">
+                            <div class="symbol"><img src="p6.jpg"></div>
+                            <div class="stock_name">Stock2</div>
+                            <div class="blank"></div>
+                            <div class="market_price">Rs 2422</div>
+                            <div class="percent_change_profit">+1.01%</div>
+                        </div>
+                        <div class="stock-box">
+                            <div class="symbol"><img src="p6.jpg"></div>
+                            <div class="stock_name">Stock2</div>
+                            <div class="blank"></div>
+                            <div class="market_price">Rs 2422</div>
+                            <div class="percent_change_profit">+1.01%</div>
+                        </div>
+                        <div class="stock-box">
+                            <div class="symbol"><img src="p6.jpg"></div>
+                            <div class="stock_name">Stock2</div>
+                            <div class="blank"></div>
+                            <div class="market_price">Rs 2422</div>
+                            <div class="percent_change_profit">+1.01%</div>
+                        </div>
+                        <div class="stock-box">
+                            <div class="symbol"><img src="p6.jpg"></div>
+                            <div class="stock_name">Stock2</div>
+                            <div class="blank"></div>
+                            <div class="market_price">Rs 2422</div>
+                            <div class="percent_change_profit">+1.01%</div>
+                        </div>
+                </div>
+            </div>
+            <div>
+                <h2>Top Losers</h2>
+            
+                <div class="stock-info">
+                    <div class="stock-box">
+                        <div class="symbol"><img src="p6.jpg"></div>
+                        <div class="stock_name">Stock2</div>
+                        <div class="blank"></div>
+                        <div class="market_price">Rs 2422</div>
+                        <div class="percent_change_profit">+1.01%</div>
+                    </div>
+                    <div class="stock-box">
+                        <div class="symbol"><img src="p6.jpg"></div>
+                        <div class="stock_name">Stock2</div>
+                        <div class="blank"></div>
+                        <div class="market_price">Rs 2422</div>
+                        <div class="percent_change_profit">+1.01%</div>
+                    </div>
+                    <div class="stock-box">
+                        <div class="symbol"><img src="p6.jpg"></div>
+                        <div class="stock_name">Stock2</div>
+                        <div class="blank"></div>
+                        <div class="market_price">Rs 2422</div>
+                        <div class="percent_change_profit">+1.01%</div>
+                    </div>
+                    <div class="stock-box">
+                        <div class="symbol"><img src="p6.jpg"></div>
+                        <div class="stock_name">Stock2</div>
+                        <div class="blank"></div>
+                        <div class="market_price">Rs 2422</div>
+                        <div class="percent_change_profit">+1.01%</div>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        <!-- News and Updates -->
+        <section id="news-updates" style="min-height: 200px;">
+            <h2>News & Updates</h2>
+            <div class="news-feed">
+                <!-- Display real-time news and updates -->
+            </div>
+        </section>
+
+        <!-- Additional Sections as Needed -->
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 StockTracker. All rights reserved.</p>
+        <p>[Additional footer information]</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Generate random data for the chart (replace this with actual data)
+        
+        var i = 0;
+        var j = 0;
+        function toggleCheckbox(checker) {
+            var checkbox = document.getElementById("toggleCheckbox");
+            if (checker === 0) {
+                checkbox.checked = !checkbox.checked;
+            }
+            if (i === 0) {
+                document.getElementById('main-content').style.backgroundColor = '#222';
+                document.getElementById('nav_main').style.backgroundColor = '#222';
+                document.getElementById('nav_main').style.color = 'rgb(255, 254, 221)';
+
+
+                var colorElements = document.querySelectorAll('.color');
+
+                colorElements.forEach(function (element) {
+                    element.style.backgroundColor = '#000';
+                    element.style.color = 'rgb(255, 254, 221)';
+                });
+                var colorElements = document.querySelectorAll('.column');
+
+                colorElements.forEach(function (element) {
+                    element.style.backgroundColor = '#000';
+                    element.style.color = 'rgb(255, 254, 221)';
+                });
+
+
+                i = 1;
+
+            } else {
+                document.getElementById('main-content').style.backgroundColor = '#eee';
+                document.getElementById('nav_main').style.backgroundColor = '#eee';
+                document.getElementById('nav_main').style.color = 'rgb(68, 71, 91)';
+                i = 0;
+                var colorElements = document.querySelectorAll('.color');
+
+                colorElements.forEach(function (element) {
+                    element.style.backgroundColor = '#fff';
+                    element.style.color = 'rgb(68, 71, 91)';
+                });
+                var colorElements = document.querySelectorAll('.column');
+
+                colorElements.forEach(function (element) {
+                    element.style.backgroundColor = '#fff';
+                    element.style.color = 'rgb(68, 71, 91)';
+                });
+            }
+
+        }
+
+        function toggleDimmingLayer() {
+            var dimmingLayer = document.getElementById('dimming-layer');
+            dimmingLayer.style.display = (dimmingLayer.style.display === 'block') ? 'none' : 'block';
+        }
+
+
+        // Close the dropdowns if the user clicks outside of them
+        window.onclick = function (event) {
+
+            var userIcon = document.querySelector(".user-icon");
+            var userIconDropdown = document.querySelector(".dropdown-content");
+            var searchContainerDropdown = document.getElementById("dropdown2");
+
+            // Check if the click is outside the user icon and its dropdown
+            if (!(event.target === userIcon || event.target.closest(".dropdown-content"))) {
+                if (userIconDropdown.style.display === "block") {
+                    userIconDropdown.style.display = "none";
+                }
+            }
+
+            // Check if the click is outside the search container dropdown
+            if (!(event.target.matches("#dropdown2"))) {
+                console.log("Hello");
+                if (searchContainerDropdown.style.display === "block") {
+                    searchContainerDropdown.style.display = "none";
+                    toggleDimmingLayer();
+                    j = 0;
+                }
+            }
+        };
+
+        function toggleDropdown(dropdownId, event) {
+            var dropdownContent = document.getElementById(dropdownId);
+            if (dropdownId === "dropdown2") {
+                if (j === 0) {
+                    toggleDimmingLayer();
+                    j = 1;
+                }
+                dropdownContent.style.display = 'block';
+                console.log(dropdownId);
+                event.stopPropagation();
+            } else {
+                console.log(dropdownId);
+                dropdownContent.style.display =
+                    dropdownContent.style.display === "block" ? "none" : "block";
+                console.log(dropdownContent.style.display);
+            }
+
+        }
+
+        function search_mode_options(mode) {
+            if (mode === 1) {
+                document.getElementById('searchable_items_box1').style.display = "inherit";
+                document.getElementById('searchable_items_box2').style.display = "none";
+                document.getElementById('searchable_items_box3').style.display = "none";
+                document.getElementById('but1').style.backgroundColor = "rgb(230, 207, 230)";
+                document.getElementById('but2').style.backgroundColor = "#efefef";
+                document.getElementById('but3').style.backgroundColor = "#efefef";
+
+
+            } else if (mode === 2) {
+                document.getElementById('searchable_items_box1').style.display = "none";
+                document.getElementById('searchable_items_box2').style.display = "inherit";
+                document.getElementById('searchable_items_box3').style.display = "none";
+                document.getElementById('but1').style.backgroundColor = "#efefef";
+                document.getElementById('but2').style.backgroundColor = "rgb(230, 207, 230)";
+                document.getElementById('but3').style.backgroundColor = "#efefef";
+
+            } else {
+                document.getElementById('searchable_items_box1').style.display = "none";
+                document.getElementById('searchable_items_box2').style.display = "none";
+                document.getElementById('searchable_items_box3').style.display = "inherit";
+                document.getElementById('but1').style.backgroundColor = "#efefef";
+                document.getElementById('but2').style.backgroundColor = "#efefef";
+                document.getElementById('but3').style.backgroundColor = "rgb(230, 207, 230)";
+            }
+        }
+
+        document.getElementById('profileicon').addEventListener('click', function () {
+            var nameElement = document.getElementById('profile_name');
+            var emailElement = document.getElementById('profile_email');
+
+            fetch('/get-profile-info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    nameElement.textContent = data.username;
+                    emailElement.textContent = data.email;
+                })
+                .catch(error => console.error('Error fetching profile info:', error));
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+        
+            // Define the request details
+            xhr.open('GET', '/send_stock_data', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+        
+            // Set up a callback function to handle the response
+            xhr.onload = function() {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse the JSON response
+                var response = JSON.parse(xhr.responseText);
+        
+                // Update the content of the respective p elements with the received data
+                document.getElementById('previous_open').innerHTML = 'Previous Open: ' + response.data[0];
+                document.getElementById('open').innerHTML = 'Open: ' + response.data[1];
+                document.getElementById('close').innerHTML = 'Close: ' + response.data[2];
+                document.getElementById('high').innerHTML = 'High: ' + response.data[3];
+                document.getElementById('low').innerHTML = 'Low: ' + response.data[4];
+                document.getElementById('volume').innerHTML = 'Volume: ' + response.data[5].toLocaleString(); // Format as comma-separated number
+                document.getElementById('avg_volume').innerHTML = 'Average Volume: ' + response.data[6].toLocaleString(); // Format as comma-separated number
+              } else {
+                console.error('Error:', xhr.statusText);
+              }
+            };
+        
+            // Set up an error callback function
+            xhr.onerror = function() {
+              console.error('Request failed');
+            };
+        
+            // Send the request
+            xhr.send();
+          });
+        </script>
+
+</body>
+
+</html>
