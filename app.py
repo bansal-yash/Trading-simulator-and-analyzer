@@ -7,12 +7,17 @@ from flask import (
     session,
     jsonify,
 )
+
+def split_list(s):
+    data_list = s.split(',')
+    return data_list
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import OTP_send, match, company_data
 import re, random
 import info_stocks_index
-
+import filter
+from linegraph import create_plot,   update_plot, save_plotly_figure
 
 app = Flask(__name__)
 app.secret_key = "Barf_Ka_Gola"
@@ -36,7 +41,7 @@ with app.app_context():
 
 @app.route("/")
 def index():
-    return render_template("about.html")
+    return render_template("dashboard.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -402,12 +407,56 @@ def stock_data(stock_sym):
     return render_template("stocks.html", company=company, sym=stock_sym)
 
 
-@app.route("/send_stock_data")
+@app.route("/filter", methods = ["POST", "GET"])
+def find_filter():
+    session["quantity"] = request.form["quantity"]
+    session["max"] = request.form["max"]
+    session["min"] = request.form["min"]
+    
+    print(session["quantity"])
+    print(session["max"])
+    print(session["min"])
+    return jsonify({})
+    
 def get_data():
     data = info_stocks_index.market_info(session["current_symbol"] + ".NS")
     print(data)
     return jsonify({"data": data})
 
+@app.route("/send_filter_data")
+def get_filter_data():
+    
+    if(session['max'] == "" and session["min"] == ""):
+        data = ["Hello from here"]
+    elif(session['max'] == ""):
+        data = filter.filter_stocks_min(int(session["min"]), session["quantity"])
+    elif(session['min'] == ""):
+        data = filter.filter_stocks_max(int(session["max"]), session["quantity"])
+    else:
+        data = filter.filter_stocks(int(session["max"]), int(session["max"]), session["quantity"])
+    print(data)
+    return jsonify({"data": data})
 
+@app.route("/send_graph", methods = ["GET","POST"])
+def send_graph():
+    session["graph_values"] = request.form['x']
+    print(session["graph_values"] )
+    return jsonify({})
+
+@app.route("/graph_page", methods = ["GET", "POST"])
+def open_stock_page():
+    array_symbol = split_list(session["graph_values"])
+    if(array_symbol[0] == "Single Stock"):
+        ticker_symbol = array_symbol[2] + ".NS"
+        period = array_symbol[3]
+        fig = create_plot(ticker_symbol, period)
+        
+        save_plotly_figure(fig)
+
+        with open('figure.html', 'r',encoding='utf-8') as file:
+            plotly_figure_html = file.read()
+
+        return render_template("dashboard.html", plotly_figure_html=plotly_figure_html)
+    
 if __name__ == "__main__":
     app.run(debug=True)

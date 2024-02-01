@@ -651,56 +651,266 @@
         <h1>Welcome, {{username}} </h1>
     </header>
     <div id="dashboard">
-        <div id="dash_text">
-            <div>
-                <h1>Dashboard</h1>
+        <h1 >Graph</h1>
+        <div class="customize">
+            <div class="select_model">
+                <ul>
+                    <li>
+                        <div class="custom-select" style="width:150px;">
+                            <select>
+                                <option value="0">Single Stock</option>
+                                <option value="1">Compare Stock</option>
+                                <option value="2">Multiple Stock</option>
+                            </select>
+                        </div>
+    
+                    </li>
+                    <li>
+                        <div class="custom-select" style="width:150px;">
+                            <select>
+                                <option value="0">NSE</option>
+                                <option value="1">BSE</option>
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+    
+    
+            </div>
+            <div class='account_side'>
+                <div id="mode1Content">
+                    <ul>
+                        <li>
+                            <div class="custom-select" style="width:150px;">
+                                <select>
+                                    <option value="0">SBIN</option>
+                                    <option value="1">Reliance</option>
+                                    <option value="2">ULTRACEMCO</option>
+                                    <option value="3">ULTRACEMCO</option>
+                                    <option value="4">ULTRACEMCO</option>
+                                    <option value="5">ULTRACEMCO</option>
+                                    <option value="6">ULTRACEMCO</option>
+                                    <option value="7">ULTRACEMCO</option>
+                                    <option value="8">ULTRACEMCO</option>
+                                    <option value="9">ULTRACEMCO</option>
+                                    <option value="10">ULTRACEMCO</option>
+                                    <option value="11">ULTRACEMCO</option>
+                                    <option value="12">ULTRACEMCO</option>
+                                    <option value="13">ULTRACEMCO</option>
+                                </select>
+                            </div>
+    
+                        </li>
+                        <li>
+                            <div class="custom-select" style="width:100px;">
+                                <select>
+                                    <option value="0">1d</option>
+                                    <option value="1">1w</option>
+                                    <option value="1">1y</option>
+                                    <option value="1">5y</option>
+                                    <option value="1">max</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="custom-select" style="width:150px;">
+                                <select>
+                                    <option value="0">Opening Price:</option>
+                                    <option value="1">Closing Price</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="mode2Content">
+                    <ul>
+                        <li>
+                            <div class="custom-select" style="width:120px;">
+                                <select>
+                                    <option value="0">SBIN</option>
+                                    <option value="1">Reliance</option>
+                                </select>
+                            </div>
+    
+                        </li>
+                        <li>
+                            <div class="custom-select" style="width:100px;">
+                                <select>
+                                    <option value="0">SBIN</option>
+                                    <option value="1">Reliance</option>
+                                </select>
+                            </div>
+    
+                        </li>
+                        <li>
+                            <div class="custom-select" style="width:100px;">
+                                <select>
+                                    <option value="0">1d</option>
+                                    <option value="1">1w</option>
+                                    <option value="1">1y</option>
+                                    <option value="1">5y</option>
+                                    <option value="1">max</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="custom-select" style="width:150px;">
+                                <select>
+                                    <option value="0">Opening Price:</option>
+                                    <option value="1">Closing Price</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="mode3Content">
+                    <ul>
+                        <li>
+                            <div class="custom-select" style="width:100px;">
+                                <select>
+                                    <option value="0">1d</option>
+                                    <option value="1">1w</option>
+                                    <option value="1">1y</option>
+                                    <option value="1">5y</option>
+                                    <option value="1">max</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="custom-select" style="width:150px;">
+                                <select>
+                                    <option value="0">Opening Price:</option>
+                                    <option value="1">Closing Price</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    
+        </div>
+        <div id="select_multiple_stocks">
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box">
+                <div class="custom-select" style="width:120px;">
+                    <select>
+                        <option value="0">SBIN</option>
+                        <option value="1">Reliance</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="box">
-            <div class="box_in" style="background-color: #d9ebf7">Box 1</div>
-            <div class="box_in" style="background-color: #f8dbfc">Box 2</div>
-            <div class="box_in" style="background-color: #fbe5de">Box 3</div>
-            <div class="box_in" style="background-color: #dbf5e2">Box 4</div>
-            <div class="box_in" style="background-color: #e5eebb">Box 5</div>
-            <div class="box_in" style="background-color: #def3f6">Box 6</div>
-            <div class="box_in" style="background-color: #bbbeee">Box 7</div>
-            <div class="box_in" style="background-color: #eebbbb">Box 8</div>
-            <div class="box_in" style="background-color: #e6cc90">Box 9</div>
-            <div class="box_in" style="background-color: #fbf7fb">Box 10</div>
-            <!-- <div class="box">Box 12</div> -->
-            <!-- <div class="box">Box 12</div> -->
-        </div>
-
-        <div id="iframe-container" style="width: 100vw;height:600px;">
-            <h1>Graph</h1>
-            <iframe src="{{url_for('second_page')}}" width="100%" height="100%" frameborder="0"></iframe>
+        <div id="hidden" style="display: none;"></div>
+        <button onclick = "location.href='/graph_page'"> login</button>
+        <div class="graph">
+            <div class="chart-container">
+                {{ plotly_figure_html | safe }}
+            </div>
         </div>
         <div class="container">
             <h1>Stock Filter</h1>
-
+    
             <div id="filter-container">
-                <label for="filter-quantity">Select Filter:</label>
-                <select id="filter-quantity">
-                    <option value="marketcap">Market Cap</option>
-                    <option value="pe_ratio">P/E Ratio</option>
-                    <option value="Total Debt">Total Debt</option>
-                    <option value="Total Revenue">Total Revenue</option>
-                    <option value="pe_ratio">P/E Ratio</option>
-                    <!-- Add more filter options as needed -->
+                <div class="filter-container-selectors">
+                    <label for="filter-quantity">Select Filter:</label>
+                    <select id="filter-quantity">
+                    <option value="marketCap">Market Cap</option>
+                    <option value="trailingPE">P/E Ratio</option>
+                    <option value="totalDebt">Total Debt</option>
+                    <option value="totalRevenue">Total Revenue</option>
                 </select>
-
-                <label for="filter-range-min">Min:</label>
-                <input type="text" id="filter-range-min" placeholder="Min">
-
-                <label for="filter-range-max">Max:</label>
-                <input type="text" id="filter-range-max" placeholder="Max">
-
-                <button onclick="applyFilter()">Apply Filter</button>
+                </div>
+                
+    
+                <div class="filter-container-selectors">
+                    <label for="filter-range-min">Min:</label>
+                    <input type="text" id="filter-range-min" placeholder="Min">
+                </div>
+                
+    
+                <div class="filter-container-selectors">
+                    <label for="filter-range-max">Max:</label>
+                    <input type="text" id="filter-range-max" placeholder="Max">
+                </div>
+                
+                
+                <button id = 'filter_click' onclick="applyFilter2()">Apply Filter</button>
             </div>
-
+    
             <div id="stock-list">
-                <!-- Display the filtered stock list here -->
             </div>
+            
         </div>
     </div>
     <div class="main"></div>
@@ -865,46 +1075,59 @@
                 .catch(error => console.error('Error fetching profile info:', error));
         });
 
-        const stocks = [
-            { symbol: 'AAPL', marketcap: 2000, pe_ratio: 25 },
-            { symbol: 'GOOGL', marketcap: 1500, pe_ratio: 30 },
-            { symbol: 'MSFT', marketcap: 1800, pe_ratio: 28 },
-            // Add more stock data as needed
-        ];
+        var stocks = [];
+        var abc = 0;
+        function applyFilter2(){
+            console.log(document.getElementById("filter-quantity").value)
 
-        function applyFilter() {
-            const filterQuantity = document.getElementById('filter-quantity').value;
-            const filterRangeMin = parseFloat(document.getElementById('filter-range-min').value);
-            const filterRangeMax = parseFloat(document.getElementById('filter-range-max').value);
+            var xhr = new XMLHttpRequest();
 
-            // Filter stocks based on the selected filter quantity and range
-            const filteredStocks = stocks.filter(stock =>
-                stock[filterQuantity] >= filterRangeMin && stock[filterQuantity] <= filterRangeMax
-            );
+            // Define the request details
+            xhr.open('GET', '/send_filter_data', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
 
-            // Display the filtered stock list
-            displayStockList(filteredStocks);
+            // Set up a callback function to handle the response
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // Parse the JSON response
+                    var response = JSON.parse(xhr.responseText);
+
+                    // Update the content of the respective p elements with the received data
+                    stocks = response.data;
+                    console.log(stocks);
+
+                } else {
+                    console.error('Error:', xhr.statusText);
+                }
+            };
+
+            // Set up an error callback function
+            xhr.onerror = function () {
+                console.error('Request failed');
+            };
+
+            // Send the request
+            xhr.send();
+            displayStockList(stocks);
+            abc = 1;
         }
+        
 
         function displayStockList(stockList) {
             const stockListContainer = document.getElementById('stock-list');
             stockListContainer.innerHTML = '';
-
+        
             if (stockList.length === 0) {
                 stockListContainer.innerHTML = '<p>No stocks found in the specified range.</p>';
                 return;
             }
-
-            const ul = document.createElement('ul');
+        
             stockList.forEach(stock => {
-                const li = document.createElement('li');
-                li.textContent = `${stock.symbol} - Market Cap: ${stock.marketcap}, P/E Ratio: ${stock.pe_ratio}`;
-                ul.appendChild(li);
+                const p = document.createElement('p');
+                p.textContent = stock;
+                stockListContainer.appendChild(p);
             });
-
-            stockListContainer.appendChild(ul);
         }
-
         function search_stock() {
             var search_input = document.getElementById('search-input').value;
             var sym1 = document.getElementById('stsym1');
@@ -992,6 +1215,205 @@
 
         document.getElementById('search-input').addEventListener('input', search_all);
         document.getElementById('search').addEventListener('click', search_all);
+
+        
+        document.getElementById('filter_click').addEventListener('click', function () {
+            var filter_quantity = document.getElementById('filter-quantity').value;
+            var filter_range_min = document.getElementById('filter-range-min').value;
+            var filter_range_max = document.getElementById('filter-range-max').value;
+
+            fetch('/filter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body : "quantity=" + filter_quantity + "&min=" + filter_range_min + "&max=" + filter_range_max
+            })
+                .then(response => response.json())
+                .then(data => {
+                })
+        });
+
+        function sendArrayToFlask(dataToSend) {
+            let jsonData = { data: dataToSend };
+            fetch('/receive-array', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Received from Flask:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+        var integerArray = [0, 1, 2, 3, 4];
+        var integerArray2 = [0, 1, 5, 6, 7, 8];
+        var integerArray3 = [0, 1, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+        function submitForm() {
+            document.getElementById("stocks").submit();
+            document.getElementById("options").submit();
+            document.getElementById("time").submit();
+            document.getElementById("stock 1").submit();
+            document.getElementById("stock 2").submit();
+        }
+
+        function toggleMode(mode) {
+            if (mode === 1) {
+                document.getElementById("mode1Content").style.display = "block";
+                document.getElementById("mode2Content").style.display = "none";
+                document.getElementById("mode3Content").style.display = "none";
+                document.getElementById("select_multiple_stocks").style.display = "none";
+            } else if (mode === 2) {
+                document.getElementById("mode1Content").style.display = "none";
+                document.getElementById("mode2Content").style.display = "block";
+                document.getElementById("mode3Content").style.display = "none";
+                document.getElementById("select_multiple_stocks").style.display = "none";
+            } else {
+                document.getElementById("mode1Content").style.display = "none";
+                document.getElementById("mode2Content").style.display = "none";
+                document.getElementById("mode3Content").style.display = "block";
+                document.getElementById("select_multiple_stocks").style.display = "grid";
+            }
+        }
+
+        var x, i, j, l, ll, selElmnt, a, b, c;
+        /* Look for any elements with the class "custom-select": */
+        x = document.getElementsByClassName("custom-select");
+        l = x.length;
+        for (i = 0; i < l; i++) {
+            selElmnt = x[i].getElementsByTagName("select")[0];
+            ll = selElmnt.length;
+            /* For each element, create a new DIV that will act as the selected item: */
+            a = document.createElement("DIV");
+            a.setAttribute("class", "select-selected");
+            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+            x[i].appendChild(a);
+            /* For each element, create a new DIV that will contain the option list: */
+            b = document.createElement("DIV");
+            b.setAttribute("class", "select-items select-hide");
+            for (j = 0; j < ll; j++) {
+                /* For each option in the original select element,
+                create a new DIV that will act as an option item: */
+                c = document.createElement("DIV");
+                c.innerHTML = selElmnt.options[j].innerHTML;
+                c.addEventListener("click", function (e) {
+                    /* When an item is clicked, update the original select box,
+                      and the selected item: */
+                    var y, i, k, s, h, sl, yl;
+                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                    sl = s.length;
+                    h = this.parentNode.previousSibling;
+                    for (i = 0; i < sl; i++) {
+                        if (s.options[i].innerHTML == this.innerHTML) {
+                            if (this.innerHTML == "Single Stock") {
+                                toggleMode(1);
+                            } else if (this.innerHTML == "Compare Stock") {
+                                toggleMode(2);
+                            } else if (this.innerHTML == "Multiple Stock") {
+                                toggleMode(3);
+                            }
+                            s.selectedIndex = i;
+                            h.innerHTML = this.innerHTML;
+                            y = this.parentNode.getElementsByClassName("same-as-selected");
+                            yl = y.length;
+                            for (k = 0; k < yl; k++) {
+                                y[k].removeAttribute("class");
+                            }
+                            this.setAttribute("class", "same-as-selected");
+                            var selectedElements = document.querySelectorAll(".select-selected");
+
+                            // Iterate over the NodeList (if needed)
+                            // console.log(selectedElements.length);
+                            var myarr = [];
+                            var s = "";
+                            if (selectedElements[0].innerHTML === "Single Stock") {
+                                for (var i = 0; i < integerArray.length; i++) {
+                                    myarr.push(selectedElements[integerArray[i]].innerHTML);
+                                    s += selectedElements[integerArray[i]].innerHTML + ",";
+                                }
+                            } else if (selectedElements[0].innerHTML === "Compare Stock") {
+                                for (var i = 0; i < integerArray2.length; i++) {
+                                    myarr.push(selectedElements[integerArray2[i]].innerHTML);
+                                    s += selectedElements[integerArray2[i]].innerHTML + ",";
+                                }
+                            } else {
+                                for (var i = 0; i < integerArray3.length; i++) {
+                                    myarr.push(selectedElements[integerArray3[i]].innerHTML);
+                                    s += selectedElements[integerArray3[i]].innerHTML + ",";
+
+                                }
+                            }
+                            document.getElementById("hidden").innerHTML = s;
+                            console.log(document.getElementById("hidden").innerHTML);
+                            send_value();
+
+                            break;
+                        }
+                    }
+                    h.click();
+                });
+                b.appendChild(c);
+            }
+            x[i].appendChild(b);
+            a.addEventListener("click", function (e) {
+                /* When the select box is clicked, close any other select boxes,
+                and open/close the current select box: */
+                e.stopPropagation();
+                closeAllSelect(this);
+                this.nextSibling.classList.toggle("select-hide");
+                this.classList.toggle("select-arrow-active");
+            });
+        }
+
+        function send_value(){
+            var x = document.getElementById("hidden").innerHTML;
+            fetch('/send_graph', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body : "x=" + x 
+            })
+                .then(response => response.json())
+                .then(data => {
+                })
+
+        }
+
+        function closeAllSelect(elmnt) {
+            var x,
+                y,
+                i,
+                xl,
+                yl,
+                arrNo = [];
+            x = document.getElementsByClassName("select-items");
+            y = document.getElementsByClassName("select-selected");
+            xl = x.length;
+            yl = y.length;
+            for (i = 0; i < yl; i++) {
+                if (elmnt == y[i]) {
+                    arrNo.push(i);
+                } else {
+                    y[i].classList.remove("select-arrow-active");
+                }
+            }
+            for (i = 0; i < xl; i++) {
+                if (arrNo.indexOf(i)) {
+                    x[i].classList.add("select-hide");
+                }
+            }
+        }
+
+        /* If the user clicks anywhere outside the select box,
+        then close all select boxes: */
+        document.addEventListener("click", closeAllSelect);
 
     </script>
 </body>
