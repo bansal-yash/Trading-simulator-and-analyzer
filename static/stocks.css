@@ -2,9 +2,14 @@ body{
     font-family: GrowwSans, NotoSans, system-ui;
 }
 
+
+a{
+    text-decoration: none;
+}
 .navbar {
     display: grid;
-    grid-template-columns: 25% 50% 25%;;
+    grid-template-columns: 25% 50% 25%;
+    ;
     justify-content: flex-end;
     font-family: Arial;
     box-shadow: 0px 8px 6px -6px #cccbcb;
@@ -98,6 +103,7 @@ body{
 .searchable_items {
     display: grid;
     grid-template-columns: 5fr 1fr;
+    color: rgb(68,71,91);
     gap: 10px;
 }
 
@@ -116,6 +122,7 @@ body{
 
 .name_of_search_item {
     font-size: 15px;
+    
 }
 
 .symbol_of_search_items {
@@ -131,6 +138,10 @@ body{
 }
 
 #searchable_items_box3 {
+    display: none;
+}
+
+#searchable_items_box4 {
     display: none;
 }
 
@@ -159,7 +170,7 @@ body{
     align-items: center;
 }
 
-#nav_main_helper{
+#nav_main_helper {
     position: relative;
 }
 

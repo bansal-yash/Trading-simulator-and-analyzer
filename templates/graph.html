@@ -12,7 +12,7 @@
 
 <body>
     <div class="customize">
-        <div class="select_model" >
+        <div class="select_model">
             <ul>
                 <li>
                     <div class="custom-select" style="width:150px;">
@@ -33,8 +33,8 @@
                     </div>
                 </li>
             </ul>
-                
-            
+
+
         </div>
         <div class='account_side'>
             <div id="mode1Content">
@@ -247,17 +247,17 @@
                 },
                 body: JSON.stringify(jsonData),
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Received from Flask:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Received from Flask:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
-        var integerArray = [0, 1, 2, 3,4];
-        var integerArray2 = [0,1, 5, 6, 7,8];
-        var integerArray3 = [0,1, 9, 10, 11, 12, 13, 14,15,16,17,18,19,20];
+        var integerArray = [0, 1, 2, 3, 4];
+        var integerArray2 = [0, 1, 5, 6, 7, 8];
+        var integerArray3 = [0, 1, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
         function submitForm() {
             document.getElementById("stocks").submit();
@@ -339,7 +339,7 @@
                             if (selectedElements[0].innerHTML === "Single Stock") {
                                 for (var i = 0; i < integerArray.length; i++) {
                                     myarr.push(selectedElements[integerArray[i]].innerHTML);
-                                    s +=  selectedElements[integerArray[i]].innerHTML + "," ;
+                                    s += selectedElements[integerArray[i]].innerHTML + ",";
                                 }
                             } else if (selectedElements[0].innerHTML === "Compare Stock") {
                                 for (var i = 0; i < integerArray2.length; i++) {

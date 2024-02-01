@@ -4,14 +4,14 @@ from flask import (
     request,
     redirect,
     url_for,
-    flash,
     session,
     jsonify,
 )
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-import OTP_send
+import OTP_send, match, company_data
 import re, random
+import info_stocks_index
 
 
 app = Flask(__name__)
@@ -332,27 +332,82 @@ def get_info():
     return jsonify({"username": username, "email": email})
 
 
+@app.route("/search-stock", methods=["POST"])
+def search_stock():
+    search = request.form["search"]
+    ans = match.top_4_stocks(search)
+    return jsonify(
+        {
+            "sym1": ans[0][0],
+            "com1": ans[0][1],
+            "sym2": ans[1][0],
+            "com2": ans[1][1],
+            "sym3": ans[2][0],
+            "com3": ans[2][1],
+            "sym4": ans[3][0],
+            "com4": ans[3][1],
+        }
+    )
+
+
+@app.route("/search-all", methods=["POST"])
+def search_all():
+    search = request.form["search"]
+    ans = match.top_4_stocks(search)
+    return jsonify(
+        {
+            "sym1": ans[0][0],
+            "com1": ans[0][1],
+            "sym2": ans[1][0],
+            "com2": ans[1][1],
+            "sym3": ans[2][0],
+            "com3": ans[2][1],
+            "sym4": ans[3][0],
+            "com4": ans[3][1],
+        }
+    )
+
+
+@app.route("/indices_<index_name>", methods=["GET", "POST"])
+def index_data(index_name):
+    tagline = {
+        "NIFTY 50": "nifty fifty",
+        "NIFTY 100": "nifty hundred",
+        "NIFTY NEXT 50": "nifty next",
+        "NIFTY BANK": "nifty bank",
+    }
+    session["indexname"] = index_name
+    return render_template(
+        "indices.html", index_name=index_name, tagline=tagline[index_name]
+    )
+
+
+@app.route("/send_index_data")
+def get_data_index():
+    symbols = {
+        "NIFTY 50": "^NSEI",
+        "NIFTY 100": "^CNX100",
+        "NIFTY NEXT 50": "^NSMIDCP",
+        "NIFTY BANK": "^NSEBANK",
+    }
+    data = info_stocks_index.market_info_index(symbols[session["indexname"]])
+    print(data)
+    return jsonify({"data": data})
+
+
+@app.route("/stock_<stock_sym>", methods=["POST", "GET"])
+def stock_data(stock_sym):
+    session["current_symbol"] = stock_sym
+    company = company_data.company_data[stock_sym]
+    return render_template("stocks.html", company=company, sym=stock_sym)
+
+
+@app.route("/send_stock_data")
+def get_data():
+    data = info_stocks_index.market_info(session["current_symbol"] + ".NS")
+    print(data)
+    return jsonify({"data": data})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-# @app.route("/send_stock_data")
-# def get_data():
-#     # Your data retrieval logic here
-#     #prev close, open, close, high, low, volume, avg volume
-#     data = [622.95, 625.45,624.2, 633.5,624.2, 16963543, 15975914]
-#     return jsonify({"data": data})
-
-
-# @app.route("/stock_page")
-# def open_stock_page():
-#     update_plot(fig, ticker_symbol)
-    
-#     # Save the updated plot as an HTML file
-#     save_plotly_figure(fig)
-
-#     # Load the saved Plotly figure HTML file
-#     with open('figure.html', 'r',encoding='utf-8') as file:
-#         plotly_figure_html = file.read()
-
-#     return render_template("stocks.html", plotly_figure_html=plotly_figure_html)
-    
