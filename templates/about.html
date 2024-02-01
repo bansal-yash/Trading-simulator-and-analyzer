@@ -4,22 +4,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello</title>
+    <title>About Us - INFTY: Trading Simulator and Analyzer</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
         .top-right {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-right button {
+            margin-left: 10px;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .top-right button:hover {
+            background-color: #0056b3;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        header h1 {
+            margin: 0;
         }
     </style>
 </head>
 
 <body>
+    <header>
+        <h1>INFTY</h1>
+        <p>Trading Simulator and Analyzer</p>
+    </header>
+
     <div class="top-right">
         <button onclick="location.href='/login'">Login</button>
         <button onclick="location.href='/register'">Register</button>
     </div>
-    <h1>Hello</h1>
+
+    <div class="container">
+        <h2>About Us</h2>
+        <p>Welcome to INFTY, your trading simulator and analyzer platform!</p>
+
+        <section>
+            <h3>Who We Are</h3>
+            <p>We are a team of passionate developers dedicated to providing users with a comprehensive and
+                user-friendly platform for analyzing and simulating trades in the stock market. Our platform is designed
+                to empower users with valuable insights, aiding them in making informed investment decisions.</p>
+        </section>
+
+        <section>
+            <h3>Our Mission</h3>
+            <p>At our core, we believe in democratizing access to financial information and tools. Our mission is to
+                provide a seamless and intuitive platform that caters to both novice and experienced traders alike,
+                fostering a community of educated investors.</p>
+        </section>
+
+        <section>
+            <h3>What We Offer</h3>
+            <p>Our platform offers a trading simulator where users can practice trading strategies in a risk-free
+                environment. We also provide data analysis tools to gain valuable insights into the stock market, and a
+                user-friendly interface for ease of navigation.</p>
+        </section>
+
+        <section>
+            <h3>Get Started</h3>
+            <p>Ready to take control of your financial future? Sign up now to unlock access to our trading simulator,
+                data analysis tools, and more. Join our community of traders and investors today!</p>
+        </section>
+
+        <section>
+            <h3>Contact Us</h3>
+            <p>Have questions or feedback? We'd love to hear from you! Reach out to our team at <a
+                    href="mailto:contact@infty.com">contact@infty.com</a> for assistance or inquiries.</p>
+        </section>
+    </div>
 </body>
 
 </html>
