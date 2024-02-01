@@ -12,7 +12,7 @@
 
 <body>
     <div class="customize">
-        <div class="select_model" style="width:150px">
+        <div class="select_model" >
             <ul>
                 <li>
                     <div class="custom-select" style="width:150px;">
@@ -24,7 +24,17 @@
                     </div>
 
                 </li>
+                <li>
+                    <div class="custom-select" style="width:150px;">
+                        <select>
+                            <option value="0">NSE</option>
+                            <option value="1">BSE</option>
+                        </select>
+                    </div>
+                </li>
             </ul>
+                
+            
         </div>
         <div class='account_side'>
             <div id="mode1Content">
@@ -53,8 +63,11 @@
                     <li>
                         <div class="custom-select" style="width:100px;">
                             <select>
-                                <option value="0">1 year</option>
-                                <option value="1">1 wk</option>
+                                <option value="0">1 day</option>
+                                <option value="1">1 week</option>
+                                <option value="1">1 year</option>
+                                <option value="1">5 year</option>
+                                <option value="1">max</option>
                             </select>
                         </div>
                     </li>
@@ -91,8 +104,11 @@
                     <li>
                         <div class="custom-select" style="width:100px;">
                             <select>
-                                <option value="0">1 year</option>
-                                <option value="1">1 wk</option>
+                                <option value="0">1 day</option>
+                                <option value="1">1 week</option>
+                                <option value="1">1 year</option>
+                                <option value="1">5 year</option>
+                                <option value="1">max</option>
                             </select>
                         </div>
                     </li>
@@ -111,8 +127,11 @@
                     <li>
                         <div class="custom-select" style="width:100px;">
                             <select>
-                                <option value="0">1 year</option>
-                                <option value="1">1 wk</option>
+                                <option value="0">1 day</option>
+                                <option value="1">1 week</option>
+                                <option value="1">1 year</option>
+                                <option value="1">5 year</option>
+                                <option value="1">max</option>
                             </select>
                         </div>
                     </li>
@@ -170,17 +189,75 @@
                 </select>
             </div>
         </div>
-    </div>
-    <div class="graph">
-        <div class="graph-part">
-
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
         </div>
-
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
+        <div class="box">
+            <div class="custom-select" style="width:120px;">
+                <select>
+                    <option value="0">SBIN</option>
+                    <option value="1">Reliance</option>
+                </select>
+            </div>
+        </div>
     </div>
+    <div id="hidden" style="display: none;"></div>
+    <div class="graph">
+        <div class="chart-container">
+            {{ plotly_figure2_html | safe }}
+        </div>
+    </div>
+
     <script>
-        var integerArray = [0, 1, 2, 3];
-        var integerArray2 = [0, 4, 5, 6, 7];
-        var integerArray3 = [0, 8, 9, 10, 11, 12, 13, 14];
+        function sendArrayToFlask(dataToSend) {
+            let jsonData = { data: dataToSend };
+            fetch('/receive-array', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Received from Flask:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        var integerArray = [0, 1, 2, 3,4];
+        var integerArray2 = [0,1, 5, 6, 7,8];
+        var integerArray3 = [0,1, 9, 10, 11, 12, 13, 14,15,16,17,18,19,20];
 
         function submitForm() {
             document.getElementById("stocks").submit();
@@ -257,20 +334,27 @@
 
                             // Iterate over the NodeList (if needed)
                             // console.log(selectedElements.length);
+                            var myarr = [];
+                            var s = "";
                             if (selectedElements[0].innerHTML === "Single Stock") {
                                 for (var i = 0; i < integerArray.length; i++) {
-                                    console.log(selectedElements[integerArray[i]].innerHTML);
+                                    myarr.push(selectedElements[integerArray[i]].innerHTML);
+                                    s +=  selectedElements[integerArray[i]].innerHTML + "," ;
                                 }
                             } else if (selectedElements[0].innerHTML === "Compare Stock") {
                                 for (var i = 0; i < integerArray2.length; i++) {
-                                    console.log(selectedElements[integerArray2[i]].innerHTML);
+                                    myarr.push(selectedElements[integerArray2[i]].innerHTML);
+                                    s += selectedElements[integerArray2[i]].innerHTML + ",";
                                 }
                             } else {
                                 for (var i = 0; i < integerArray3.length; i++) {
-                                    console.log(selectedElements[integerArray3[i]].innerHTML);
+                                    myarr.push(selectedElements[integerArray3[i]].innerHTML);
+                                    s += selectedElements[integerArray3[i]].innerHTML + ",";
+
                                 }
                             }
-
+                            document.getElementById("hidden").innerHTML = s;
+                            console.log(document.getElementById("hidden").innerHTML);
                             break;
                         }
                     }

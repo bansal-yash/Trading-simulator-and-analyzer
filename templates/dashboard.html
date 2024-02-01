@@ -6,104 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        .icon img {
-            width: 30px;
-            height: 30px;
-            border-radius: 15px;
-            margin: 5px;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: flex-end;
-            font-family: Arial;
-        }
-
-        #nav_main {
-            color: rgb(68, 71, 91);
-            background-color: #eee;
-            font-size: 20px;
-            color: rgb(68, 71, 91);
-            position: relative;
-            margin-right: 40px;
-        }
-
-        #nav_main .dropdown-btn {
-            border: none;
-
-            font-size: 20px;
-
-            padding: 0px;
-            cursor: pointer;
-        }
-
-        #nav_main ul {
-            list-style: none;
-            display: flex;
-
-        }
-
-        #nav_main ul li {
-            margin-inline: 16px;
-        }
-
-        #nav_main a {
-            text-decoration: none;
-
-        }
-
-        .dropdown-content {
-            display: none;
-            z-index: 1;
-            position: absolute;
-            margin-right: 10px;
-            /* Add some margin to the right */
-            width: 360px;
-            right: 0;
-            top: 60px;
-            background-color: white;
+        body {
             font-family: GrowwSans, NotoSans, system-ui;
         }
 
-        .color {
+        .navbar {
+            display: grid;
+            grid-template-columns: 25% 50% 25%;
+            ;
+            justify-content: flex-end;
+            font-family: Arial;
+            box-shadow: 0px 8px 6px -6px #cccbcb;
+            height: 80px;
+        }
+
+        #logo {
+            font-size: 32px;
             color: rgb(68, 71, 91);
-            background-color: white;
-            font-size: 16px;
-
+            font-family: GrowwSans, NotoSans, system-ui;
+            margin-top: 15px;
+            text-align: center;
         }
 
-        .dropdown-content div {
-            padding: 5px;
-            padding-inline: 10px;
-        }
-
-        .dropdown-content #account {
+        .search-container-dropdown {
             display: flex;
-        }
-
-        .dropdown-content #account div {
-            padding: 0px;
-        }
-
-
-
-        .dropdown-content a {
-            padding: 0 !important;
-            /* Remove padding */
-            font-size: 13px;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
         }
 
         .search-container {
             display: flex;
-            margin-right: 170px;
-            margin-top: 16px;
             background-color: white;
+            position: relative;
             align-items: center;
             padding: 5px;
             height: 30px !important;
-            border-radius: 5px;
+            border: 2px solid #aaa;
+            border-radius: 8px;
         }
 
         #search-input {
@@ -124,34 +65,24 @@
             display: none;
             z-index: 1;
             position: absolute;
-            top: 60px;
+            top: 50px;
+            right: 0px;
             width: 440px;
-            right: 170px;
             background-color: white;
             font-family: GrowwSans, NotoSans, system-ui;
             border-radius: 15px;
         }
 
-        .search-container-dropdown {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 5;
-        }
+
 
         #options {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
         }
 
-        #options div {
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
         .options-button {
             text-align: center;
+            margin: 10px 0;
         }
 
         .centered-button {
@@ -167,10 +98,12 @@
             cursor: pointer;
         }
 
-        #dropdown-content {
-            display: flex;
-            flex-direction: column;
+        #but1 {
+            background-color: rgb(230, 207, 230);
         }
+
+
+
 
         .searchable_items {
             display: grid;
@@ -211,8 +144,181 @@
             display: none;
         }
 
-        #but1 {
-            background-color: rgb(230, 207, 230);
+
+
+        .icon img {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin: 5px;
+        }
+
+
+
+        #dropdown-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #nav_main {
+            color: rgb(68, 71, 91);
+            background-color: white;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #nav_main_helper {
+            position: relative;
+        }
+
+        #nav_main .dropdown-btn {
+            border: none;
+            font-size: 20px;
+            padding: 0px;
+            cursor: pointer;
+        }
+
+        #nav_main ul {
+            list-style: none;
+            display: flex;
+        }
+
+        #nav_main ul li {
+            margin-inline: 16px;
+        }
+
+        #nav_main a {
+            text-decoration: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            z-index: 1;
+            position: absolute;
+            right: 0;
+            /* Add some margin to the right */
+            width: 360px;
+            top: 60px;
+            background-color: white;
+            font-family: GrowwSans, NotoSans, system-ui;
+            border: 2px solid #aaa;
+
+        }
+
+        .color {
+            color: rgb(68, 71, 91);
+            background-color: white;
+            font-size: 16px;
+        }
+
+        .dropdown-content div {
+            padding: 5px;
+            padding-inline: 10px;
+        }
+
+        .dropdown-content #account {
+            display: flex;
+        }
+
+        .dropdown-content #account div {
+            padding: 0px;
+        }
+
+
+
+        .dropdown-content a {
+            padding: 0 !important;
+            /* Remove padding */
+            font-size: 13px;
+        }
+
+
+
+
+
+
+
+        #dimming-layer {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .toggle-container {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 45px;
+            height: 24px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2.5px;
+            bottom: 2px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(20px);
+            -ms-transform: translateX(20px);
+            transform: translateX(20px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 24px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
         }
     </style>
     <title>Sidebar Layout</title>
@@ -221,123 +327,116 @@
 <body>
     <div id="dimming-layer"></div>
 
-    <div id="main-content">
-        <div class="navbar">
-            <div class="search-container-dropdown">
-                <div class="search-container" onclick="toggleDropdown('dropdown2',event)">
-                    <div><i class="fas fa-search" style="margin-inline: 5px;"></i></div>
-                    <div class="search-main">
-                        <input type="text" id="search-input" placeholder="Search...">
+    <div class="navbar">
+        <div id='logo'>&infin; Infty</h1>
+        </div>
+        <div class="search-container-dropdown">
+            <div class="search-container" onclick="toggleDropdown('dropdown2',event)">
+                <div><i class="fas fa-search" style="margin-inline: 5px;"></i></div>
+                <div><input type="text" id="search-input" placeholder="Search..."></div>
+                <div id="dropdown2">
+                    <div id="options">
+                        <div class="options-button">
+                            <button class="centered-button" onclick="search_mode_options(1)" id="but1">All</button>
+                        </div>
+                        <div class="options-button">
+                            <button class="centered-button" onclick="search_mode_options(2)" id="but2">Stocks</button>
+                        </div>
+                        <div class="options-button">
+                            <button class="centered-button" onclick="search_mode_options(3)" id="but3">Indices</button>
+                        </div>
                     </div>
-                    <div id="dropdown2">
-                        <div id="dropdown2_content">
-                            <div id="options">
-                                <div class="options-button">
-                                    <button class="centered-button" onclick="search_mode_options(1)"
-                                        id="but1">All</button>
+                    <div id="searchable_items_box1">
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    State Bank of India
                                 </div>
-                                <div class="options-button">
-                                    <button class="centered-button" onclick="search_mode_options(2)"
-                                        id="but2">Stocks</button>
-                                </div>
-                                <div class="options-button">
-                                    <button class="centered-button" onclick="search_mode_options(3)"
-                                        id="but3">Indices</button>
+                                <div class="symbol_of_search_items">
+                                    SBIN
                                 </div>
                             </div>
-                            <div id="searchable_items_box1">
-                                <div class="searchable_items">
-                                    <div class="search_item_info">
-                                        <div class="name_of_search_item">
-                                            State Bank of India
-                                        </div>
-                                        <div class="symbol_of_search_items">
-                                            SBIN
-                                        </div>
-                                    </div>
-                                    <div class="type_of_search">
-                                        Stock
-                                    </div>
-                                </div>
-                                <div class="searchable_items">
-                                    <div class="search_item_info">
-                                        <div class="name_of_search_item">
-                                            Reliance Industries Ltd.
-                                        </div>
-                                        <div class="symbol_of_search_items">
-                                            Reliance
-                                        </div>
-                                    </div>
-                                    <div class="type_of_search">
-                                        Stock
-                                    </div>
-                                </div>
-                                <div class="searchable_items">
-                                    <div class="search_item_info">
-                                        <div class="name_of_search_item">
-                                            NIFY 50
-                                        </div>
-                                        <div class="symbol_of_search_items">
-                                            NIFTY
-                                        </div>
-                                    </div>
-                                    <div class="type_of_search">
-                                        Index
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="searchable_items_box2">
-                                <div class="searchable_items">
-                                    <div class="search_item_info">
-                                        <div class="name_of_search_item">
-                                            State Bank of India
-                                        </div>
-                                        <div class="symbol_of_search_items">
-                                            SBIN
-                                        </div>
-                                    </div>
-                                    <div class="type_of_search">
-                                        Stock
-                                    </div>
-                                </div>
-                                <div class="searchable_items">
-                                    <div class="search_item_info">
-                                        <div class="name_of_search_item">
-                                            Reliance Industries Ltd.
-                                        </div>
-                                        <div class="symbol_of_search_items">
-                                            Reliance
-                                        </div>
-                                    </div>
-                                    <div class="type_of_search">
-                                        Stock
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="searchable_items_box3">
-                                <div class="searchable_items">
-                                    <div class="search_item_info">
-                                        <div class="name_of_search_item">
-                                            NIFY 50
-                                        </div>
-                                        <div class="symbol_of_search_items">
-                                            NIFTY
-                                        </div>
-                                    </div>
-                                    <div class="type_of_search">
-                                        Index
-                                    </div>
-                                </div>
+                            <div class="type_of_search">
+                                Stock
                             </div>
                         </div>
-
-
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    Reliance Industries Ltd.
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    Reliance
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Stock
+                            </div>
+                        </div>
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    NIFY 50
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    NIFTY
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Index
+                            </div>
+                        </div>
+                    </div>
+                    <div id="searchable_items_box2">
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    State Bank of India
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    SBIN
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Stock
+                            </div>
+                        </div>
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    Reliance Industries Ltd.
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    Reliance
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Stock
+                            </div>
+                        </div>
+                    </div>
+                    <div id="searchable_items_box3">
+                        <div class="searchable_items">
+                            <div class="search_item_info">
+                                <div class="name_of_search_item">
+                                    NIFY 50
+                                </div>
+                                <div class="symbol_of_search_items">
+                                    NIFTY
+                                </div>
+                            </div>
+                            <div class="type_of_search">
+                                Index
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="nav_main">
+        </div>
+        <div id="nav_main">
+            <div id="nav_main_helper">
                 <ul>
-                    <li><a href="#">🛒</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart font_awesome_icons"></i></a></li>
                     <li><a href="#">&#128176;</a></li>
                     <li>
                         <div class="dropdown">
@@ -389,37 +488,68 @@
                     </li>
                 </ul>
             </div>
-        </div>
-        <div id="dashboard">
-            <div id="dash_text">
-                <div>
-                    <h1>Dashboard</h1>
-                </div>
-            </div>
-            <div class="box">
-                <div class="box_in" style="background-color: #d9ebf7">Box 1</div>
-                <div class="box_in" style="background-color: #f8dbfc">Box 2</div>
-                <div class="box_in" style="background-color: #fbe5de">Box 3</div>
-                <div class="box_in" style="background-color: #dbf5e2">Box 4</div>
-                <div class="box_in" style="background-color: #e5eebb">Box 5</div>
-                <div class="box_in" style="background-color: #def3f6">Box 6</div>
-                <div class="box_in" style="background-color: #bbbeee">Box 7</div>
-                <div class="box_in" style="background-color: #eebbbb">Box 8</div>
-                <div class="box_in" style="background-color: #e6cc90">Box 9</div>
-                <div class="box_in" style="background-color: #fbf7fb">Box 10</div>
-                <!-- <div class="box">Box 12</div> -->
-                <!-- <div class="box">Box 12</div> -->
-            </div>
 
-            <div class="plots">
-                <div class="column">
-                    <iframe id="myFrame" src="{{url_for('second_page')}}" width="100%" height="100%"></iframe>
-                </div>
-                <div class="column">Plot2</div>
+        </div>
+    </div>
+
+    <header>
+        <h1>Welcome, User</h1>
+    </header>
+    <div id="dashboard">
+        <div id="dash_text">
+            <div>
+                <h1>Dashboard</h1>
             </div>
         </div>
-        <div class="main"></div>
+        <div class="box">
+            <div class="box_in" style="background-color: #d9ebf7">Box 1</div>
+            <div class="box_in" style="background-color: #f8dbfc">Box 2</div>
+            <div class="box_in" style="background-color: #fbe5de">Box 3</div>
+            <div class="box_in" style="background-color: #dbf5e2">Box 4</div>
+            <div class="box_in" style="background-color: #e5eebb">Box 5</div>
+            <div class="box_in" style="background-color: #def3f6">Box 6</div>
+            <div class="box_in" style="background-color: #bbbeee">Box 7</div>
+            <div class="box_in" style="background-color: #eebbbb">Box 8</div>
+            <div class="box_in" style="background-color: #e6cc90">Box 9</div>
+            <div class="box_in" style="background-color: #fbf7fb">Box 10</div>
+            <!-- <div class="box">Box 12</div> -->
+            <!-- <div class="box">Box 12</div> -->
+        </div>
+
+        <div id="iframe-container" style="width: 100vw;height:600px;">
+            <h1>Graph</h1>
+            <iframe src="{{url_for('second_page')}}" width="100%" height="100%" frameborder="0"></iframe>
+        </div>
+        <div class="container">
+            <h1>Stock Filter</h1>
+    
+            <div id="filter-container">
+                <label for="filter-quantity">Select Filter:</label>
+                <select id="filter-quantity">
+                    <option value="marketcap">Market Cap</option>
+                    <option value="pe_ratio">P/E Ratio</option>
+                    <option value="Total Debt">Total Debt</option>
+                    <option value="Total Revenue">Total Revenue</option>
+                    <option value="pe_ratio">P/E Ratio</option>
+                    <!-- Add more filter options as needed -->
+                </select>
+    
+                <label for="filter-range-min">Min:</label>
+                <input type="text" id="filter-range-min" placeholder="Min">
+    
+                <label for="filter-range-max">Max:</label>
+                <input type="text" id="filter-range-max" placeholder="Max">
+    
+                <button onclick="applyFilter()">Apply Filter</button>
+            </div>
+    
+            <div id="stock-list">
+                <!-- Display the filtered stock list here -->
+            </div>
+        </div>
     </div>
+    <div class="main"></div>
+
 
 
     <script>
@@ -434,8 +564,7 @@
                 document.getElementById('main-content').style.backgroundColor = '#222';
                 document.getElementById('nav_main').style.backgroundColor = '#222';
                 document.getElementById('nav_main').style.color = 'rgb(255, 254, 221)';
-                document.getElementById('sidebar').style.backgroundColor = '#000';
-                document.getElementById('sidebar').style.color = 'rgb(255, 254, 221)';
+
 
                 var colorElements = document.querySelectorAll('.color');
 
@@ -457,8 +586,6 @@
                 document.getElementById('main-content').style.backgroundColor = '#eee';
                 document.getElementById('nav_main').style.backgroundColor = '#eee';
                 document.getElementById('nav_main').style.color = 'rgb(68, 71, 91)';
-                document.getElementById('sidebar').style.backgroundColor = '#fff';
-                document.getElementById('sidebar').style.color = 'rgb(68, 71, 91)';
                 i = 0;
                 var colorElements = document.querySelectorAll('.color');
 
@@ -571,6 +698,48 @@
                 })
                 .catch(error => console.error('Error fetching profile info:', error));
         });
+
+        const stocks = [
+        { symbol: 'AAPL', marketcap: 2000, pe_ratio: 25 },
+        { symbol: 'GOOGL', marketcap: 1500, pe_ratio: 30 },
+        { symbol: 'MSFT', marketcap: 1800, pe_ratio: 28 },
+        // Add more stock data as needed
+    ];
+
+    function applyFilter() {
+        const filterQuantity = document.getElementById('filter-quantity').value;
+        const filterRangeMin = parseFloat(document.getElementById('filter-range-min').value);
+        const filterRangeMax = parseFloat(document.getElementById('filter-range-max').value);
+
+        // Filter stocks based on the selected filter quantity and range
+        const filteredStocks = stocks.filter(stock =>
+            stock[filterQuantity] >= filterRangeMin && stock[filterQuantity] <= filterRangeMax
+        );
+
+        // Display the filtered stock list
+        displayStockList(filteredStocks);
+    }
+
+    function displayStockList(stockList) {
+        const stockListContainer = document.getElementById('stock-list');
+        stockListContainer.innerHTML = '';
+
+        if (stockList.length === 0) {
+            stockListContainer.innerHTML = '<p>No stocks found in the specified range.</p>';
+            return;
+        }
+
+        const ul = document.createElement('ul');
+        stockList.forEach(stock => {
+            const li = document.createElement('li');
+            li.textContent = `${stock.symbol} - Market Cap: ${stock.marketcap}, P/E Ratio: ${stock.pe_ratio}`;
+            ul.appendChild(li);
+        });
+
+        stockListContainer.appendChild(ul);
+    }
+
+
 
     </script>
 </body>

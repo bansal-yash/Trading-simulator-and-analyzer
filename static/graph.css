@@ -1,10 +1,15 @@
 body {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  /* background: #0a0a23; */
   padding: 0px;
-  width: 650px;
+  width: 100%;
+  margin: 0px;
+
+}
+
+body::after{
+  display: flex;
+  justify-content: center;
 }
 
 .customize {
@@ -12,7 +17,8 @@ body {
   justify-content: space-between;
   /* background: #0a0a23; */
   background: white;
-  height: 50px
+  height: 50px;
+  margin-inline: 20px;
 }
 
 .customize ul {
@@ -26,6 +32,7 @@ ul li {
   text-decoration: none;
   color: black;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin-inline: 5px;
 }
 
 .custom-select {
@@ -51,14 +58,14 @@ ul li {
 
 .custom-select select {
   display: none;
-  /*hide original SELECT element: */
+  /*this hides the original element: */
 }
 
 .select-selected {
-  /* background: #0a0a23; */
   background: white;
   color: #0a0a23;
   font-size: 12px;
+  margin-inline: 10px;
 }
 
 /* Style the arrow inside the select element: */
@@ -85,7 +92,7 @@ ul li {
   color: #0a0a23;
   padding: 8px 16px;
   border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  border-color: rgba(0, 0, 0, 0.1) transparent rgba(0, 0, 0, 0.2) transparent;
   cursor: pointer;
 }
 
@@ -100,8 +107,8 @@ ul li {
   left: 0;
   right: 0;
   z-index: 99;
-  /* max-height: 200px; */
-  /* overflow-y: auto; */
+  max-height: 200px; 
+  overflow-y: auto;
 }
 
 /* Hide the items when the select box is closed: */
@@ -116,12 +123,20 @@ ul li {
 
 #select_multiple_stocks {
   display: none;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   justify-content: center;
   margin-inline-start: 10px;
+  margin-bottom: 5px;
 }
 
 .graph {
-  height: 450px;
-  background-color: #ddd;
+  padding: 20px;
+}
+
+.chart-container {
+  background-color: #656464;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-height: 400px;
 }
