@@ -8,10 +8,13 @@
 
 #include "basic.cpp"
 #include "dma.cpp"
-#include "linear_regression.cpp"
+#include "dmapp.cpp"
 #include "macd.cpp"
 #include "rsi.cpp"
+#include "adx.cpp"
+#include "linear_regression.cpp"
 #include "pairs.cpp"
+#include "stop_loss_pairs.cpp"
 
 using namespace std;
 
@@ -129,9 +132,45 @@ int main(int argc, char *argv[])
         }
     }
 
-    else if (strategy == "DMA++")
+    else if (strategy == "DMA++") /////////////////////////////////////////////////////////////////
     {
-        int x = 1;
+        string symbol = argv[2];
+        string n = argv[3];
+        string x = argv[4];
+        string p = argv[5];
+        string max_hold_days = argv[6];
+        string c1 = argv[7];
+        string c2 = argv[8];
+        string start_date = argv[9];
+        string end_date = argv[10];
+
+        string to_invoke = "python3 get_data.py " + symbol + " " + n + " " + start_date + " " + end_date;
+        system(to_invoke.c_str());
+
+        vector<vector<string>> data;
+        vector<vector<string>> order_stats;
+        vector<vector<string>> CashFlow;
+
+        readCSV(symbol + ".csv", data);
+        reverse(data.begin(), data.end());
+
+        double pnl = dmapp_strategy(data, CashFlow, order_stats, stoi(n), stoi(x), stod(p), stoi(max_hold_days), stod(c1), stod(c2));
+
+        writeCSV("order_statistics.csv", order_stats);
+        writeCSV("daily_cashflow.csv", CashFlow);
+        ofstream outfile("final_pnl.txt", ios::app);
+        if (outfile.is_open())
+        {
+            outfile << pnl << std::endl;
+            outfile.close();
+        }
+
+        FILE *file = fopen((symbol + ".csv").c_str(), "r");
+        if (file)
+        {
+            fclose(file);
+            remove((symbol + ".csv").c_str());
+        }
     }
 
     else if (strategy == "MACD")
@@ -209,7 +248,40 @@ int main(int argc, char *argv[])
 
     else if (strategy == "ADX")
     {
-        int x = 1;
+        string symbol = argv[2];
+        string n = argv[3];
+        string x = argv[4];
+        string adx_threshold = argv[5];
+        string start_date = argv[6];
+        string end_date = argv[7];
+
+        string to_invoke = "python3 get_data_adx.py " + symbol + " 1 " + start_date + " " + end_date;
+        system(to_invoke.c_str());
+
+        vector<vector<string>> data;
+        vector<vector<string>> order_stats;
+        vector<vector<string>> CashFlow;
+
+        readCSV(symbol + "adx.csv", data);
+        reverse(data.begin(), data.end());
+
+        double pnl = ADX_strategy(data, CashFlow, order_stats, stoi(x), stoi(n), stod(adx_threshold));
+
+        writeCSV("order_statistics.csv", order_stats);
+        writeCSV("daily_cashflow.csv", CashFlow);
+        ofstream outfile("final_pnl.txt", ios::app);
+        if (outfile.is_open())
+        {
+            outfile << pnl << std::endl;
+            outfile.close();
+        }
+
+        FILE *file = fopen((symbol + "adx.csv").c_str(), "r");
+        if (file)
+        {
+            fclose(file);
+            remove((symbol + "adx.csv").c_str());
+        }
     }
 
     else if (strategy == "LINEAR_REGRESSION")
@@ -225,7 +297,7 @@ int main(int argc, char *argv[])
         string to_invoke = "python3 get_data_linear.py " + symbol + " 1 " + train_start_date + " " + train_end_date;
         system(to_invoke.c_str());
         vector<vector<string>> data;
-        readCSV(symbol + ".csv", data);
+        readCSV(symbol + "linear.csv", data);
         reverse(data.begin(), data.end());
         data.pop_back();
 
@@ -239,7 +311,7 @@ int main(int argc, char *argv[])
         vector<vector<string>> order_stats;
         vector<vector<string>> CashFlow;
 
-        readCSV(symbol + ".csv", data);
+        readCSV(symbol + "linear.csv", data);
         reverse(data.begin(), data.end());
         double pnl = linear_regression_strategy(data, coefficients, stoi(x), stoi(p), order_stats, CashFlow);
 
@@ -252,12 +324,12 @@ int main(int argc, char *argv[])
             outfile.close();
         }
 
-        system(("rm " + symbol + ".csv").c_str());
-    }
-
-    else if (strategy == "BEST_OF_ALL")
-    {
-        int x = 1;
+        FILE *file = fopen((symbol + "linear.csv").c_str(), "r");
+        if (file)
+        {
+            fclose(file);
+            remove((symbol + "linear.csv").c_str());
+        }
     }
 
     else if (strategy == "PAIRS" && argc == 9)
@@ -317,7 +389,62 @@ int main(int argc, char *argv[])
 
     else if (strategy == "PAIRS" && argc == 10)
     {
+        string n = argv[2];
+        string x = argv[3];
+        string symbol1 = argv[4];
+        string symbol2 = argv[5];
+        string threshold = argv[6];
+        string stop_loss_threshold = argv[7];
+        string start_date = argv[8];
+        string end_date = argv[9];
+
+        string to_invoke = "python3 get_data.py " + symbol1 + " " + n + " " + start_date + " " + end_date;
+        system(to_invoke.c_str());
+
+        to_invoke = "python3 get_data.py " + symbol2 + " " + n + " " + start_date + " " + end_date;
+        system(to_invoke.c_str());
+
+        vector<vector<string>> data1;
+        vector<vector<string>> data2;
+        vector<vector<string>> order_stats1;
+        vector<vector<string>> order_stats2;
+        vector<vector<string>> CashFlow;
+
+        readCSV(symbol1 + ".csv", data1);
+        reverse(data1.begin(), data1.end());
+
+        readCSV(symbol2 + ".csv", data2);
+        reverse(data2.begin(), data2.end());
+
+        double pnl = 0; ///////////////////////////////////////////////////////////////////////////////////////////////
+
+        writeCSV("order_statistics_1.csv", order_stats1);
+        writeCSV("order_statistics_2.csv", order_stats2);
+        writeCSV("daily_cashflow.csv", CashFlow);
+        ofstream outfile("final_pnl.txt", ios::app);
+        if (outfile.is_open())
+        {
+            outfile << pnl << std::endl;
+            outfile.close();
+        }
+
+        FILE *file1 = fopen((symbol1 + ".csv").c_str(), "r");
+        if (file1)
+        {
+            fclose(file1);
+            remove((symbol1 + ".csv").c_str());
+        }
+
+        FILE *file2 = fopen((symbol2 + ".csv").c_str(), "r");
+        if (file2)
+        {
+            fclose(file2);
+            remove((symbol2 + ".csv").c_str());
+        }
+    }
+
+    else if (strategy == "BEST_OF_ALL")
+    {
         int x = 1;
-        cout << "aaa" << endl;
     }
 }

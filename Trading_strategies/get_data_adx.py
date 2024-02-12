@@ -26,5 +26,5 @@ if len(df) < no_days_needed:
 df = df.head(no_days_needed)
 df = df[["DATE", "CLOSE", "HIGH", "LOW", "PREV. CLOSE"]]
 
-file_name = sym + ".csv"
+file_name = sym + "adx.csv"
 df.to_csv(file_name, index=False)

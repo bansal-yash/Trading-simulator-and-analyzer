@@ -14,5 +14,5 @@ start_date = start_date - relativedelta(days=n)
 df = stock_df(symbol=sym, from_date=start_date, to_date=end_date, series="EQ")
 df = df[["DATE", "CLOSE", "OPEN", "HIGH", "LOW", "VWAP", "NO OF TRADES"]]
 
-file_name = sym + ".csv"
+file_name = sym + "linear.csv"
 df.to_csv(file_name, index=False)
