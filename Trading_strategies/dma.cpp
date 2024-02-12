@@ -1,5 +1,5 @@
-#include <iostream>
 #include <vector>
+#include <string>
 #include <cmath>
 
 using namespace std;
@@ -53,6 +53,7 @@ void DMA_strategy(const vector<vector<string>> &data, int n, int x, int p, vecto
     double cumulative_cashflow = 0;
     int data_length = data.size() - 1;
     double arr[n];
+
     for (int i = 0; i < n; i++)
     {
         arr[i] = stod(data[i][1]);
@@ -67,7 +68,7 @@ void DMA_strategy(const vector<vector<string>> &data, int n, int x, int p, vecto
         string date = date_formatting_dma(data[i][0]);
         vector<string> CashFlow_row;
 
-        if (today_price > ref_val_buy)
+        if (today_price >= ref_val_buy)
         {
             if (curr_pos < x)
             {
@@ -84,7 +85,7 @@ void DMA_strategy(const vector<vector<string>> &data, int n, int x, int p, vecto
                 curr_pos++;
             }
         }
-        else if (today_price < ref_val_sell)
+        else if (today_price <= ref_val_sell)
         {
             if (curr_pos > -x)
             {

@@ -1,6 +1,9 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <vector>
-
+#include <algorithm>
 using namespace std;
 
 string date_formatting_basic(string date)
@@ -142,6 +145,24 @@ void basic_strategy(const vector<vector<string>> &data, int n, int x, vector<vec
                 }
                 i++;
             }
+        }
+    }
+
+    if (curr_pos != 0)
+    {
+        cout << cumulative_cashflow << endl;
+        cumulative_cashflow += curr_pos * stod(data[data_length - 1][1]);
+        std::ofstream outfile("final_pnl.txt", std::ios::app);
+        cout << cumulative_cashflow << endl;
+        if (outfile.is_open())
+        {
+            outfile << cumulative_cashflow << std::endl;
+
+            outfile.close();
+        }
+        else
+        {
+            std::cerr << "Error opening file!" << std::endl;
         }
     }
 }
