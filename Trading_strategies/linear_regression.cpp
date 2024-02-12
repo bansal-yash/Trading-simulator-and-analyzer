@@ -156,10 +156,10 @@ string date_formatting_linear(string date)
     return s;
 }
 
-void linear_regression_strategy(const vector<vector<string>> &data, const vector<double> coefficients, int x, int p, vector<vector<string>> &order_stats, vector<vector<string>> &CashFlow)
+double linear_regression_strategy(const vector<vector<string>> &data, const vector<double> coefficients, int x, int p, vector<vector<string>> &order_stats, vector<vector<string>> &CashFlow)
 {
     order_stats.push_back({"Date", "Order_dir", "Quantity", "Price"});
-    CashFlow.push_back({"Date", "CashFlow"});
+    CashFlow.push_back({"Date", "Cashflow"});
     int curr_pos = 0;
     double cumulative_cashflow = 0;
     int data_length = data.size() - 1;
@@ -193,9 +193,6 @@ void linear_regression_strategy(const vector<vector<string>> &data, const vector
                 order_stats_row.push_back("BUY");
                 order_stats_row.push_back("1");
                 order_stats_row.push_back(data[i][1]);
-                CashFlow_row.push_back(date);
-                CashFlow_row.push_back(to_string(cumulative_cashflow));
-                CashFlow.push_back(CashFlow_row);
                 order_stats.push_back(order_stats_row);
                 curr_pos++;
             }
@@ -210,18 +207,15 @@ void linear_regression_strategy(const vector<vector<string>> &data, const vector
                 order_stats_row.push_back("SELL");
                 order_stats_row.push_back("1");
                 order_stats_row.push_back(data[i][1]);
-                CashFlow_row.push_back(date);
-                CashFlow_row.push_back(to_string(cumulative_cashflow));
-                CashFlow.push_back(CashFlow_row);
                 order_stats.push_back(order_stats_row);
                 curr_pos--;
             }
         }
-        else
-        {
-            CashFlow_row.push_back(date);
-            CashFlow_row.push_back(to_string(cumulative_cashflow));
-            CashFlow.push_back(CashFlow_row);
-        }
+        CashFlow_row.push_back(date);
+        CashFlow_row.push_back(to_string(cumulative_cashflow));
+        CashFlow.push_back(CashFlow_row);
     }
+
+    cumulative_cashflow += curr_pos * stod(data[data_length - 1][1]);
+    return cumulative_cashflow;
 }

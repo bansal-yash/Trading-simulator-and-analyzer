@@ -1,9 +1,5 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
 #include <string>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 string date_formatting_basic(string date)
@@ -17,7 +13,7 @@ string date_formatting_basic(string date)
     return s;
 }
 
-void basic_strategy(const vector<vector<string>> &data, int n, int x, vector<vector<string>> &order_stats, vector<vector<string>> &CashFlow)
+double basic_strategy(const vector<vector<string>> &data, int n, int x, vector<vector<string>> &order_stats, vector<vector<string>> &CashFlow)
 {
     double cumulative_cashflow = 0;
     int data_length = data.size() - 1;
@@ -25,7 +21,7 @@ void basic_strategy(const vector<vector<string>> &data, int n, int x, vector<vec
     int curr_pos = 0;
 
     order_stats.push_back({"Date", "Order_dir", "Quantity", "Price"});
-    CashFlow.push_back({"Date", "CashFlow"});
+    CashFlow.push_back({"Date", "Cashflow"});
     while (i < data_length)
     {
         if (data[i][1] == data[i - 1][1])
@@ -89,8 +85,8 @@ void basic_strategy(const vector<vector<string>> &data, int n, int x, vector<vec
                     CashFlow_row.push_back(to_string(cumulative_cashflow));
                     CashFlow.push_back(CashFlow_row);
                     order_stats.push_back(order_stats_row);
+                    i++;
                 }
-                i++;
             }
         }
         else
@@ -142,27 +138,12 @@ void basic_strategy(const vector<vector<string>> &data, int n, int x, vector<vec
                     CashFlow_row.push_back(to_string(cumulative_cashflow));
                     CashFlow.push_back(CashFlow_row);
                     order_stats.push_back(order_stats_row);
+                    i++;
                 }
-                i++;
             }
         }
     }
 
-    if (curr_pos != 0)
-    {
-        cout << cumulative_cashflow << endl;
-        cumulative_cashflow += curr_pos * stod(data[data_length - 1][1]);
-        std::ofstream outfile("final_pnl.txt", std::ios::app);
-        cout << cumulative_cashflow << endl;
-        if (outfile.is_open())
-        {
-            outfile << cumulative_cashflow << std::endl;
-
-            outfile.close();
-        }
-        else
-        {
-            std::cerr << "Error opening file!" << std::endl;
-        }
-    }
+    cumulative_cashflow += curr_pos * stod(data[data_length - 1][1]);
+    return cumulative_cashflow;
 }
