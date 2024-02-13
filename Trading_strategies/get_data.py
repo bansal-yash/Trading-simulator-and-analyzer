@@ -9,6 +9,7 @@ start_date = sys.argv[3]
 start_date = datetime.strptime(start_date, "%d/%m/%Y").date()
 end_date = sys.argv[4]
 end_date = datetime.strptime(end_date, "%d/%m/%Y").date()
+strategy = sys.argv[5]
 
 df = stock_df(symbol=sym, from_date=start_date, to_date=end_date, series="EQ")
 no_days = len(df)
@@ -26,7 +27,7 @@ if len(df) < no_days_needed:
 df = df.head(no_days_needed)
 df = df[["DATE", "CLOSE"]]
 
-file_name = sym + ".csv"
+file_name = sym + "_" + strategy + ".csv"
 df.to_csv(file_name, index=False)
 
 

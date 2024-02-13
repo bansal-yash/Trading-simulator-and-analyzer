@@ -156,7 +156,7 @@ string date_formatting_linear(string date)
     return s;
 }
 
-double linear_regression_strategy(const vector<vector<string>> &data, const vector<double> coefficients, int x, int p, vector<vector<string>> &order_stats, vector<vector<string>> &CashFlow)
+double linear_regression_strategy(const vector<vector<string>> &data, const vector<double> coefficients, int x, double p, vector<vector<string>> &order_stats, vector<vector<string>> &CashFlow)
 {
     order_stats.push_back({"Date", "Order_dir", "Quantity", "Price"});
     CashFlow.push_back({"Date", "Cashflow"});
